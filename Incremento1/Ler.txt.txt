@@ -1,0 +1,6 @@
+Aviso -> O projeto será reogarnizado.
+
+Nome do banco: bd_sggp
+locallhost
+usuario: root
+senha:
