@@ -39,13 +39,6 @@ CREATE TABLE IF NOT EXISTS `administradores` (
   PRIMARY KEY (`Login`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
---
--- Extraindo dados da tabela `administradores`
---
-
-INSERT INTO `administradores` (`Login`, `Email`, `Senha`, `Data`) VALUES
-('Admin', 'douglasfabio.ifsp@gmail.com', '123', '0000-00-00 00:00:00'),
-('testedata', 'douglasfabio.ifsp@gmail.com', '123', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -64,14 +57,6 @@ CREATE TABLE IF NOT EXISTS `lideres` (
   PRIMARY KEY (`Prontuario`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
---
--- Extraindo dados da tabela `lideres`
---
-
-INSERT INTO `lideres` (`Prontuario`, `Nome`, `Email`, `Senha`, `Data`, `verificaacesso_lider`) VALUES
-(1690094, 'Douglas Fabio', 'douglasfabio.ifsp@gmail.com', '0', '0000-00-00 00:00:00', 0),
-(1350081, 'Douglas Integrado', 'douglasfabio.integrado@gmail.com', '0', '0000-00-00 00:00:00', 0),
-(1690065, 'Douglas +1', 'douglas.mais1@gmail.com', '0', '2018-09-03 23:23:00', 0);
 
 -- --------------------------------------------------------
 
