@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 30, 2018 at 06:40 PM
+-- Generation Time: Sep 30, 2018 at 09:49 PM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -85,11 +85,19 @@ DROP TABLE IF EXISTS `tb_permissoes`;
 CREATE TABLE IF NOT EXISTS `tb_permissoes` (
   `id` tinyint(1) NOT NULL,
   `cdusuarios` tinyint(1) NOT NULL,
-  `cdgrupo` tinyint(1) NOT NULL,
-  `edgrupo` tinyint(1) NOT NULL,
+  `cdgrupo` int(11) NOT NULL,
+  `edgrupo` int(11) NOT NULL,
   `permissoes` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_permissoes`
+--
+
+INSERT INTO `tb_permissoes` (`id`, `cdusuarios`, `cdgrupo`, `edgrupo`, `permissoes`) VALUES
+(1, 0, 0, 1, 0),
+(0, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 

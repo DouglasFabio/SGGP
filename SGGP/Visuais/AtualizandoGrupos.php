@@ -187,7 +187,7 @@
                         }
                         else{
 
-                            echo echo "<script>retorna();</script>";
+                            echo "<script>retorna();</script>";
 
                         }
                     $conexao->close();
