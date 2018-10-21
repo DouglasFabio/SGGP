@@ -8,7 +8,7 @@
 <?php
 function conectar(){
 
-	$conexao = new mysqli("localhost", "root", "toor", "bd_sggp");
+	$conexao = new mysqli("localhost", "root", "", "bd_sggp");
     mysqli_set_charset( $conexao, 'utf8');
 
 	if ($conexao->connect_error) {

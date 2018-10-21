@@ -1,4 +1,4 @@
-<div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin6">
+<div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin6" style="background-color: #8275ff; line-height: 2.0;">
                     <!-- ============================================================== -->
                     <!-- toggle and nav items -->
                     <!-- ============================================================== -->
@@ -27,9 +27,45 @@
                     <!-- Right side toggle and nav items -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav float-right">
-                        <a class="dropdown-item" href="../Visuais/PaginaInicial.php"><i class="ti-home m-r-5 m-l-5"></i> Página Inicial</a>
-                        <a class="dropdown-item" href="../Visuais/TrocaSenha.php"><i class="ti-lock m-r-5 m-l-5"></i> Alterar Senha</a>
-                        <a class="dropdown-item" href="../Funcionais/Logout.php"><i class="ti-power-off m-r-5 m-l-5"></i> Logout</a>
+                        <?php
+                           
+                            if(isset($_SESSION['LiderLogin']))
+                            {
+                            
+                            ?>
+                                 <nav class="navbar navbar-inverse">
+                                  <div class="container-fluid">
+                                   <ul class="nav navbar-nav">
+                                      <li><a class="dropdown-item" style="background-color: #b3b3ff ; border-radius: 1px; text-color:white;">Bem-vindo,  <?php echo $_SESSION['LiderNome']; ?></a></li>
+                                <?php
+                               
+                            }
+                            else if(isset($_SESSION['AdmLogin']))
+                            {
+                        ?>
+                                
+                        <nav class="navbar navbar-inverse">
+                          <div class="container-fluid">
+                           <ul class="nav navbar-nav">
+                              <li><a class="dropdown-item" style="background-color: #b3b3ff ; border-radius: 1px; text-color:white;">Bem-vindo,  <?php echo $_SESSION['AdmLogin']; ?></a></li>
+                        <?php
+                            }
+                        ?>
+                          
+                            
+                              <li class="active"><a class="dropdown-item" href="../Visuais/PaginaInicial.php" style="background-color: #b3b3ff ; border-radius: 1px;"><i class="ti-home m-r-5 m-l-5" ></i> Página Inicial</a></li>
+                              <li><a class="dropdown-item" href="../Visuais/TrocaSenha.php" style="background-color: #b3b3ff ; border-radius: 1px;"><i class="ti-lock m-r-5 m-l-5"></i> Alterar Senha</a></li>
+                            
+                        </ul>
+                              <a class="btn btn-danger navbar-btn" href="../Funcionais/Logout.php" style="padding: .79rem .79rem;"><i class="ti-power-off m-r-5 m-l-5"></i> Logout</a>
+                        </div>
+                        </nav>
+                        
+                        
+                        
+                        
+                        
+                       
                         <!-- <li class="nav-item dropdown">
                            A TAG LI INSERE UM ESPAÇO PARA COLOCAR A LISTA 
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

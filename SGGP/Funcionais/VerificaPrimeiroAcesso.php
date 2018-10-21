@@ -42,9 +42,15 @@
           include("ClassUsuario.php");
 
           if($saida["tipo"] == 1){
+              
+              $busca2 = "SELECT nome FROM tb_lideres WHERE lider = '$login'";
+
+              $resultado2 = $conexao->query($busca2);
+              
+              $saida2 = $resultado2->fetch_assoc();
 
               $lider = new Lider();
-              $lider->CriaSessao($saida["login"], "nome", $saida["email"], 1);
+              $lider->CriaSessao($saida["login"], $saida2["nome"], $saida["email"], 1);
 
           }
           else if($saida["tipo"] == 0){

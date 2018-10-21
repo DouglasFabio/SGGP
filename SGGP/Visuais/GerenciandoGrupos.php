@@ -109,13 +109,6 @@
                 
                 <div class="container-fluid">
 
-                    <?php
-                    
-                        include("../Uteis/ScriptValidaCadUsuarios.php");
-                    
-                    
-                    ?>
-                    
                     <div class="row">
                    
                     <div class="col-12">

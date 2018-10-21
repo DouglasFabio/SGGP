@@ -80,17 +80,19 @@
                             var r=confirm("Problemas nos dados informados!");
                             if (r==true)
                             {
-                                window.location.href = 'CadGrupo.php';
+                                window.location.href = 'Painel.php';
                             }
                             else
                             {
-                                window.location.href = 'CadGrupo.php';
+                                window.location.href = 'Painel.php';
                             }
                             document.getElementById("demo").innerHTML=x;
                         }
                     </script>
                     <?php
-
+                    
+                        date_default_timezone_set('America/Sao_Paulo');
+                        $hoje = date('Y-m-d');
                         $data = $_POST['datainicio_grupo'];
                         $nomegrupo = $_POST['nome_grupo'];   
                         $email = $_POST['email_grupo'];
@@ -98,9 +100,14 @@
                         $link = $_POST['link_grupo'];
                         $descricao = $_POST['desc_grupo']; 
                         $sigla_antiga = $_POST['sigla_antiga'];
+                        $linha = $_POST['linha_mostra'];
+                        $data_vinculo = $_POST['datavinculo_grupo'];
+                        $descricao_linha = $_POST['desclinha_grupo'];
                     
-                        if ( isset( $_FILES[ 'arquivo' ][ 'name' ] ) && $_FILES[ 'arquivo' ][ 'error' ] == 0 ) {
-
+                        
+                    
+                        if ( isset( $_FILES[ 'arquivo' ][ 'name' ] ) && $_FILES[ 'arquivo' ][ 'error' ] == 0 && $_FILES['arquivo']['size'] < 1000000) {
+                           
                             $arquivo_tmp = $_FILES[ 'arquivo' ][ 'tmp_name' ];
                             $nome = $_FILES[ 'arquivo' ][ 'name' ];
 
@@ -121,75 +128,76 @@
 
                                 // tenta mover o arquivo para o destino
                                 if ( move_uploaded_file ( $arquivo_tmp, $destino ) ) {
+                                    if($linha != ""){
+                                        $buscaCodigoLinha = "SELECT nome, codigo FROM tb_subespecialidades WHERE nome = '".$linha."'";
+                                        $resultado = $conexao->query($buscaCodigoLinha);
+                                        // VERIFICAÇÃO 
+                                        if ($resultado->num_rows > 0) {
+                                            $saida = $resultado->fetch_assoc();
+                                            $insereLinha = "INSERT INTO `tb_linhasgrupos` (`grupo`, `inicio_vinculo`, `codigo_capes`, `descricao`,`data_cad`)                                                                                                                   VALUES ('".$sigla."', '".$data_vinculo."', ".$saida['codigo'].", '".$descricao_linha."', '".$hoje."');";
 
-                                    $atualiza = "UPDATE `tb_grupospesquisa` 
-                                                 SET `situacao` = '1', 
-                                                     `nome` = '".$nomegrupo."',
-                                                     `sigla` = '".$sigla."',
-                                                     `email` = '".$email."', 
-                                                     `link` = '".$link."', 
-                                                     `descricao` = \"".$descricao."\", 
-                                                     `data_inicio` = '".$data."', 
-                                                     `logotipo` = '".$destino."' 
-                                                 WHERE `sigla` = '".$sigla_antiga."'";
-                                   
-                                    $resultado = mysqli_query($conexao, $atualiza);
-
-                                    if($resultado){
-                                        
-                                            echo "<div class=\"row\">
-                                                    <div class=\"col-12\">
-                                                        <div class=\"card card-body\">
-                                                            <center><h4 class=\"card-title\">Atualização realizada com sucesso!</h4></center>
-                                                            <a href=\"GerenciandoGrupos.php\" id=\"cad_novo\" class=\"btn btn-secondary\">Voltar aos Grupos</a>
-                                                        </div>
-                                                    </div>";
-                                        
-                                            unlink("../Grupos/".$sigla_antiga.".php");
-                                            $conteudo = '<!DOCTYPE html>
-                                                        <html lang="pt">
-                                                        <head>
-                                                            <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-                                                        <title>'.$sigla.'</title>
-                                                        </head>
-                                                        <frameset rows="100%" border="0"> 
-                                                        <?php
-                                                            $sigla = "'.$sigla.'";
-                                                            if(!isset($_SESSION)) session_start();
-                                                            $_SESSION[\'sigla\'] = $sigla;
-                                                        ?>
-                                                        <frame src="PaginaGrupos.php"> 
-                                                        </frameset>
-                                                        </html>';
-                                        $local = "../Grupos/".$sigla.".php";
-                                        file_put_contents($local, $conteudo);
-                                        
+                                           $conexao->query($insereLinha);
+                                        }else{
+                                            echo "<script>retorna();</script>";
+                                        }
                                     }
-                                    else{
+                                        // atualizando sem linha de pesquisa
+                                        $atualiza = "UPDATE `tb_grupospesquisa` 
+                                                         SET `situacao` = '1', 
+                                                             `nome` = '".$nomegrupo."',
+                                                             `sigla` = '".$sigla."',
+                                                             `email` = '".$email."', 
+                                                             `link` = '".$link."', 
+                                                             `descricao` = \"".$descricao."\", 
+                                                             `data_inicio` = '".$data."', 
+                                                             `logotipo` = '".$destino."' 
+                                                         WHERE `sigla` = '".$sigla_antiga."'";
 
-                                        echo "<script>retorna();</script>";
+                                            $resultado = mysqli_query($conexao, $atualiza);
 
+                                            if($resultado){
+
+                                                    echo "<div class=\"row\">
+                                                            <div class=\"col-12\">
+                                                                <div class=\"card card-body\">
+                                                                    <center><h4 class=\"card-title\">Atualização realizada com sucesso!</h4></center>
+                                                                    <a href=\"Painel.php\" id=\"cad_novo\" class=\"btn btn-secondary\">Voltar aos Grupos</a>
+                                                                </div>
+                                                            </div>";
+
+                                                    unlink("../Grupos/".$sigla_antiga.".php");
+                                                    $conteudo = '<!DOCTYPE html>
+                                                                <html lang="pt">
+                                                                <head>
+                                                                    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+                                                                <title>'.$sigla.'</title>
+                                                                </head>
+                                                                <frameset rows="100%" border="0"> 
+                                                                <?php
+                                                                    $sigla = "'.$sigla.'";
+                                                                    if(!isset($_SESSION)) session_start();
+                                                                    $_SESSION[\'sigla\'] = $sigla;
+                                                                ?>
+                                                                <frame src="PaginaGrupos.php"> 
+                                                                </frameset>
+                                                                </html>';
+                                                $local = "../Grupos/".$sigla.".php";
+                                                file_put_contents($local, $conteudo);
                                     }
-                                    
-
                                 }
+                                
                                 else{
-
                                     echo "<script>retorna();</script>";
-
                                 }
                             }
                             else{
-
                                 echo "<script>retorna();</script>";
-
                             }
                         }
                         else{
-
-                            echo "<script>retorna();</script>";
-
+                           echo "<script>retorna();</script>";
                         }
+                    
                     $conexao->close();
 
                     ?>

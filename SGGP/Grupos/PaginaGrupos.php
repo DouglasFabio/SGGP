@@ -104,16 +104,150 @@
               <p class="post-meta"> Veja o currículo completo: <a target = "_top" href="http://<?php echo $saida['link']; ?>"> <?php echo $saida['link']; ?> </a>                  
               </p>
               <br>
-              <p class="post-meta"> Grupo ativo desde: <?php echo $saida['data_inicio']; ?>                 
+              <p class="post-meta"> Grupo ativo desde: <?php echo $saida['data_inicio']; }?>                 
               </p>
+              <br>
+              <p class="post-meta"> Integrantes                 
+              </p>
+              <table class="table table-hover">
+                               
+                    
+                  <tbody>
+                       <?php
+
+                        $busca2 = "SELECT id, nome, grupo, tipo, data_exclusao, link, formacao_acad, nome_curso, data_inclusao, foto  FROM tb_participantes WHERE grupo ='".$sigla."' ORDER BY tipo asc";
+
+                            if ($resultado2 = $conexao->prepare($busca2)) {
+
+                                $resultado2->execute();
+
+                                $resultado2->bind_result($id, $nome, $grupo, $tipo, $data_exclusao, $link, $formacao_acad, $nome_curso, $data_inclusao, $foto);
+
+                                while ($resultado2->fetch()) {
+                                    if($data_exclusao != ""){
+                                             
+                                    }
+                                    else if($tipo == "0"){
+                                        printf('<tr>
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col"></th>
+                                                        <th scope="col">Nome</th>
+                                                        <th scope="col">Tipo</th>
+                                                    </tr>
+                                                </thead>
+                                                <td><img class="img-thumbnail" style=" max-width:100px; max-height:100px; width: auto; height: auto;" src="'.$foto.'" alt=""></td>
+                                                <td>'.$nome.'</td>
+                                                <td><form action="../Visuais/Membros.php">
+                                                <input name="membro" value="'.$id.'" hidden>
+                                                <button type="submit" class="btn btn-outline-info" style="color: #0085a1;">TÉCNICO</button></form></td>
+                                                </tr>
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Participante desde:</th>
+                                                        <th scope="col">Formação</th>
+                                                        <th scope="col">Lattes</th>
+                                                    </tr>
+                                                </thead>
+                                                <tr>
+                                                <td>'.$data_inclusao.'</td>
+                                                <td>'.$formacao_acad.'</td>
+                                                <td><a href="http://'.$link.'">'.$link.'</a></td>
+                                                </tr>');
+                                    }
+                                    else if($tipo == "1"){
+                                        printf('<tr>
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col"></th>
+                                                        <th scope="col">Nome</th>
+                                                        <th scope="col">Tipo</th>
+                                                    </tr>
+                                                </thead>
+                                                <td><img class="img-thumbnail" style=" max-width:100px; max-height:100px; width: auto; height: auto;" src="'.$foto.'" alt=""></td>
+                                                <td>'.$nome.'</td>
+                                                <td><form action="../Visuais/Membros.php">
+                                                <input name="membro" value="'.$id.'" hidden>
+                                                <button type="submit" class="btn btn-outline-info" style="color: #33d6ff;">DOCENTE</button></form></td></tr>
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Participante desde:</th>
+                                                        <th scope="col">Formação</th>
+                                                        <th scope="col">Lattes</th>
+                                                    </tr>
+                                                </thead>
+                                                <tr>
+                                                <td>'.$data_inclusao.'</td>
+                                                <td>'.$formacao_acad.'</td>
+                                                <td><a href="http://'.$link.'">'.$link.'</a></td>
+                                                </tr>
+                                                ');
+                                    }
+                                }   
+                            }
+                            else {
+                                printf( "Erro no SQL!");
+                            }
+                            $resultado2->close();   
+                        ?>
+                </tbody>
+                  
+                </table>
+              
+              <br>
+              <p class="post-meta"> Linhas de Pesquisa Relacionadas                
+              </p>
+              <table class="table table-hover">
+                               
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Descricao</th>
+                        </tr>
+                    </thead>
+                  <tbody>
+                       <?php
+
+                        $busca3 = "SELECT e.nome, e.codigo, l.codigo_capes, l.grupo, l.descricao FROM tb_linhasgrupos AS l INNER JOIN tb_subespecialidades AS e WHERE l.grupo ='".$sigla."' AND l.codigo_capes = e.codigo";
+
+                            if ($resultado3 = $conexao->prepare($busca3)) {
+
+                                $resultado3->execute();
+
+                                $resultado3->bind_result($nome, $codigo, $codigocapes, $grupo, $descricao);
+
+                                while ($resultado3->fetch()) {
+                                    if($data_exclusao != ""){
+                                             
+                                    }
+                                    else if($tipo == "0"){
+                                        printf('<tr>
+                                                <td>'.$nome.'</td>
+                                                <td>'.$descricao.'</td></tr>');
+                                    }
+                                    else if($tipo == "1"){
+                                        printf('<tr>
+                                                <td>'.$nome.'</td>
+                                                <td>'.$descricao.'</td></tr>');
+                                    }
+                                }   
+                            }
+                            else {
+                                printf( "Erro no SQL!");
+                            }
+                            $resultado2->close();   
+                        ?>
+                </tbody>
+                  
+                </table>
             <p class="copyright text-muted">Desenvolvido por SGGP. &copy; Todos os direitos reservados.</p>
           </div>
         </div>
       </div>
+        
     </footer>
 
  <?php
-    }
 	include("../Uteis/ScriptsPagInicial.php");
 
 ?>

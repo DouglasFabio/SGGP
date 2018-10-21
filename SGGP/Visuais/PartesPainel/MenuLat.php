@@ -3,26 +3,27 @@
     <nav class="sidebar-nav">
        
         <ul id="sidebarnav">
-          
-           <li class="sidebar-item">
 
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Painel.php" aria-expanded="false">
-
-                        <i class="mdi mdi-home"></i>
-
-                        <span class="hide-menu">Início</span>
-
-                    </a>
-
-            </li>
-            
             <?php
             
                 include("../BancoDeDados/Conexao.php");
 
-                $conexao = conectar();
+                $conexao = conectar();        
             
                 if(isset($_SESSION['AdmTipo'])){
+                ?>
+                <li class="sidebar-item">
+
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Painel.php" aria-expanded="false">
+
+                            <i class="mdi mdi-home"></i>
+
+                            <span class="hide-menu">Início</span>
+
+                        </a>
+
+                </li>
+                <?php
                     
                     $busca = "SELECT * FROM tb_permissoes WHERE id = 0";
                     
@@ -64,6 +65,23 @@
                                         <i class="mdi mdi-account-multiple-plus"></i>
 
                                         <span class=" hide-menu"> Cadastrar Grupos de Pesquisa</span>
+
+                                    </a>
+
+                                </li>      
+                            
+            <?php
+                        }
+                        if($saida['cdlinha'] == 1){
+                            
+            ?>
+                            <li class="sidebar-item">
+
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="ManutencaoLinhasGeral.php" aria-expanded="false">
+
+                                        <i class="mdi mdi-equal-box"></i>
+
+                                        <span class=" hide-menu">Gerenciar Linhas de Pesquisa</span>
 
                                     </a>
 
@@ -149,12 +167,12 @@
             ?>
                            
                             <li class="sidebar-item">
-                               
-                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="GerenciandoGrupos.php" aria-expanded="false">
-                                   
-                                    <i class="mdi mdi-face"></i>
+
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Painel.php" aria-expanded="false">
+
+                                    <i class="mdi mdi-home"></i>
                                     
-                                    <span class="hide-menu">Gerenciar Grupos 
+                                    <span class="hide-menu">Início 
                                                                
                                                             <?php 
                                                                 $conta = "SELECT situacao FROM tb_grupospesquisa WHERE situacao = 2 and lider = ".$_SESSION['LiderLogin'];
