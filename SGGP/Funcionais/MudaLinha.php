@@ -4,13 +4,25 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <?php
+
+        if (!isset($_SESSION)) session_start();
+
+        if (!isset($_SESSION['AdmLogin'])) {
+            
+          header("Location: Painel.php"); exit;
+
+        }
+
+
+        include("../Uteis/HeadPainel.php");
         
-            include("../Uteis/HeadPainel.php");
-        
-        ?>
+    ?>
         
     </head>
     <body>
+                <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
         <?php
             function modal($nome, $codigo){
                 printf('
@@ -19,9 +31,9 @@
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">
                               <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Linha desvinculada com sucesso!</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Editando linha selecionada</h5>
                               </div>
-                              <input type="number" name="codigo" class="form-control" value="'.$codigo.'">
+                              <input type="number" max="99999999" name="codigo" class="form-control" value="'.$codigo.'">
                               <input type="text" name="nome" class="form-control" value="'.$nome.'">
                               <input name="linha" value="'.$codigo.'" hidden>
                               <div class="modal-footer">
@@ -31,7 +43,12 @@
                           </div>
                         </div>
                     </form>
-                ');
+                    <script>
+            $(document).ready(function(){
+                $(\'#myModal\').modal(\'show\');
+            });
+        </script>
+                '); 
             }
             function ok(){
                 printf('
@@ -49,6 +66,11 @@
                           </div>
                         </div>
                     </form>
+                    <script>
+            $(document).ready(function(){
+                $(\'#myModal\').modal(\'show\');
+            });
+        </script>
                 ');
             }
             include("../BancoDeDados/Conexao.php");
@@ -64,15 +86,15 @@
 
                 $resultado = $conexao->query($busca);
 
-                if ($resultado->num_rows = 0) {
+                if ($resultado->num_rows == 0) {
                         $busca2 = "SELECT codigo, nome FROM tb_subareas WHERE codigo = '".$linha."'";
 
                         $resultado2 = $conexao->query($busca2);
-                        if ($resultado2->num_rows = 0) {
+                        if ($resultado2->num_rows == 0) {
                             $busca3 = "SELECT codigo, nome FROM tb_especialidades WHERE codigo = '".$linha."'";
 
                             $resultado3 = $conexao->query($busca3);
-                            if ($resultado3->num_rows = 0) {
+                            if ($resultado3->num_rows == 0) {
                                 $busca4 = "SELECT codigo, nome FROM tb_subespecialidades WHERE codigo = '".$linha."'";
 
                                 $resultado4 = $conexao->query($busca4);
@@ -88,7 +110,7 @@
                                     }
                                 }
                                 else{
-                                    // erro
+                                    printf('<script>window.alert("Linha não encontrada!");</script>');
                                 }
                             }
                             else{
@@ -135,15 +157,15 @@
 
                 $resultado = $conexao->query($busca);
 
-                if ($resultado->num_rows = 0) {
+                if ($resultado->num_rows == 0) {
                         $busca2 = "SELECT codigo, nome FROM tb_subareas WHERE nome = '".$linha."'";
 
                         $resultado2 = $conexao->query($busca2);
-                        if ($resultado2->num_rows = 0) {
+                        if ($resultado2->num_rows == 0) {
                             $busca3 = "SELECT codigo, nome FROM tb_especialidades WHERE nome = '".$linha."'";
 
                             $resultado3 = $conexao->query($busca3);
-                            if ($resultado3->num_rows = 0) {
+                            if ($resultado3->num_rows == 0) {
                                 $busca4 = "SELECT codigo, nome FROM tb_subespecialidades WHERE nome = '".$linha."'";
 
                                 $resultado4 = $conexao->query($busca4);
@@ -152,7 +174,7 @@
                                     modal($saida['nome'], $saida['codigo']);
                                 }
                                 else{
-                                    echo "erro";
+                                    printf('<script>window.alert("Linha não encontrada!");</script>');
                                 }
                             }
                             else{
@@ -173,14 +195,12 @@
             }
         
         ?>
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script>
-            $(document).ready(function(){
-                $('#myModal').modal('show');
-            });
-        </script>
+
+        <?php
+        
+            include("../Uteis/ScriptsPainel.php");
+        
+        ?>
     </body>
 </html>
 

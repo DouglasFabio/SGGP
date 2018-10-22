@@ -138,8 +138,8 @@
                                                 </thead>
                                                 <td><img class="img-thumbnail" style=" max-width:100px; max-height:100px; width: auto; height: auto;" src="'.$foto.'" alt=""></td>
                                                 <td>'.$nome.'</td>
-                                                <td><form action="../Visuais/Membros.php">
-                                                <input name="membro" value="'.$id.'" hidden>
+                                                <td><form action="../Visuais/Membros.php" method="post">
+                                                <input type="text" name="membro" value="'.$id.'" hidden>
                                                 <button type="submit" class="btn btn-outline-info" style="color: #0085a1;">TÉCNICO</button></form></td>
                                                 </tr>
                                                 <thead>
@@ -166,8 +166,8 @@
                                                 </thead>
                                                 <td><img class="img-thumbnail" style=" max-width:100px; max-height:100px; width: auto; height: auto;" src="'.$foto.'" alt=""></td>
                                                 <td>'.$nome.'</td>
-                                                <td><form action="../Visuais/Membros.php">
-                                                <input name="membro" value="'.$id.'" hidden>
+                                                <td><form action="../Visuais/Membros.php" method="post">
+                                                <input type="text" name="membro" value="'.$id.'" hidden>
                                                 <button type="submit" class="btn btn-outline-info" style="color: #33d6ff;">DOCENTE</button></form></td></tr>
                                                 <thead>
                                                     <tr>

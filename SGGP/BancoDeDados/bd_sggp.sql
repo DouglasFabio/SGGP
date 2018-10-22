@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: 20-Out-2018 às 20:44
+-- Generation Time: 21-Out-2018 às 20:57
 -- Versão do servidor: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -433,15 +433,6 @@ CREATE TABLE IF NOT EXISTS `tb_grupospesquisa` (
 -- Extraindo dados da tabela `tb_grupospesquisa`
 --
 
-INSERT INTO `tb_grupospesquisa` (`nome`, `sigla`, `lider`, `situacao`, `email`, `link`, `descricao`, `logotipo`, `data_inicio`) VALUES
-('Grupo de pesquisa da Agatha ', 'GPA', '1690175', 1, '', 'www.google.com', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '../Uteis/Imagens/GruposPesquisa/GPA.png', '1999-02-19'),
-('Grupo Ativo Douglas', 'GAD', '1350081', 0, NULL, NULL, NULL, NULL, NULL),
-('Grupo do Tiago', 'GDT', '10001', 0, NULL, NULL, NULL, NULL, NULL),
-('Reconhecimento de padrões', 'RDP', '1690175', 1, '', 'www.grupopesquisa.com', 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.\r\n\r\nThe standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.', '../Uteis/Imagens/GruposPesquisa/RDP.png', '2015-08-20'),
-('Grupo teste trabalho', 'GTT', '1690175', 0, '', 'sdasfdasfda', 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.\r\n\r\nThe standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.', '../Uteis/Imagens/GruposPesquisa/logotipo.jpg', '2000-08-20'),
-('Grupo para efeito de teste', 'GPET', '1690094', 1, '', 'asd', 'asd', '../Uteis/Imagens/GruposPesquisa/GPET.jpg', '2018-06'),
-('Grupo de pesquisa 2', 'GDPD2', '1690094', 0, NULL, NULL, NULL, NULL, NULL),
-('Criando regras no Snort', 'CRSSS', '1690094', 1, 'crss@email.com', 'crss2.email.com', 'asdasdasdasd', '../Uteis/Imagens/GruposPesquisa/CRSSS.jpg', '1999-04');
 
 -- --------------------------------------------------------
 
@@ -477,17 +468,7 @@ CREATE TABLE IF NOT EXISTS `tb_lideres` (
 -- Extraindo dados da tabela `tb_lideres`
 --
 
-INSERT INTO `tb_lideres` (`lider`, `link`, `nome`, `foto`) VALUES
-('1690094', NULL, 'Douglas', NULL),
-('100013', NULL, 'Igor', NULL),
-('1350081', NULL, 'Douglas Fabio da Cruz Junior', NULL),
-('12345', NULL, 'Lider', NULL),
-('9999999', 'http://lattes.cnpq.br/', 'IgorTeste', '../Uteis/Imagens/Lideres/9999999.jpg'),
-('10001', NULL, 'Tiago', NULL),
-('10002', NULL, 'Acento no IGOR ígor', NULL),
-('452240452', NULL, 'Líder íííí', NULL),
-('1690175', 'www.lattes.com.br/igormoraessampaio', 'Igor de Moraes Sampaio', '../Uteis/Imagens/Lideres/1690175.jpg'),
-('1590014', NULL, 'Agatha', NULL);
+
 
 -- --------------------------------------------------------
 
@@ -511,12 +492,7 @@ CREATE TABLE IF NOT EXISTS `tb_linhasdocentes` (
 -- Extraindo dados da tabela `tb_linhasdocentes`
 --
 
-INSERT INTO `tb_linhasdocentes` (`id`, `inicio_vinculo`, `fim_vinculo`, `docente`, `linha_pesquisa`) VALUES
-(6, '2005-02-19', NULL, 38, 31203027),
-(5, '2015-02-03', NULL, 37, 50603043),
-(4, '2018-01-02', NULL, 37, 31203027),
-(7, '2015-10-20', NULL, 39, 31203027),
-(8, '1997-11-25', NULL, 40, 31203027);
+
 
 -- --------------------------------------------------------
 
@@ -542,9 +518,7 @@ CREATE TABLE IF NOT EXISTS `tb_linhasgrupos` (
 -- Extraindo dados da tabela `tb_linhasgrupos`
 --
 
-INSERT INTO `tb_linhasgrupos` (`id`, `grupo`, `inicio_vinculo`, `fim_vinculo`, `codigo_capes`, `descricao`, `data_cad`) VALUES
-(10, 'GPET', '1988-02-19', NULL, 31203027, 'xvxcvzxzcvxcvz', '2018-10-20'),
-(11, 'GPET', '2018-10-20', NULL, 50603043, 'eewettwetett', '2018-10-20');
+
 
 -- --------------------------------------------------------
 
@@ -1603,8 +1577,7 @@ CREATE TABLE IF NOT EXISTS `tb_tecnicos` (
 -- Extraindo dados da tabela `tb_tecnicos`
 --
 
-INSERT INTO `tb_tecnicos` (`ano`, `atividade`, `participante`) VALUES
-('', 'Diretor Administrativo do IFSP - Campus Barretos', 36);
+
 
 -- --------------------------------------------------------
 
@@ -1627,19 +1600,7 @@ CREATE TABLE IF NOT EXISTS `tb_usuarios` (
 -- Extraindo dados da tabela `tb_usuarios`
 --
 
-INSERT INTO `tb_usuarios` (`login`, `email`, `senha`, `data`, `tipo`, `acesso`) VALUES
-('Administrador', 'admin@sggp.com.br', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', '2018-09-19 23:24:43', 0, 1),
-('1690094', 'douglasfabio.ifsp@gmail.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', '2018-09-21 23:38:00', 1, 1),
-('100013', 'igor100013@gmail.com', '724679c9091b4d4f9676ceb48487c9471beb361ea2401bf70ae546742fb85844', '2018-09-22 00:19:19', 1, 0),
-('1350081', 'douglasfabio.ifsp@gmail.com', '97fdf84dc04d6fd281e2260d51af4780dd16b5a5ad94473422a29768dd83441a', '2018-09-22 18:45:41', 1, 0),
-('12345', 'milmonalta@hotmail.com', 'e63985a32b9b8a22f82c20fbda26363f8eb373363d0b0d6c2e77116675697310', '2018-09-22 19:07:44', 1, 1),
-('9999999', 'igor100013@gmail.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', '2018-09-22 23:19:51', 1, 1),
-('10001', 'milmonalta@hotmail.com', 'd528aca172007a176514866f71f699231356129f905bc86ff441d1b4fea8f166', '2018-09-23 17:12:08', 1, 0),
-('10002', 'igor100013@gmail.com', '0258d55c3b610a45d170f899c7cec8ed70cfd99e3fe1e26c74acceb94b4995ec', '2018-09-23 19:42:51', 1, 0),
-('452240452', 'douglasfabio.ifsp@gmail.com', '7ff1898a7fa22c78a77dc83ca5dbb28d38e6b654e749798c7e157515877f61c4', '2018-09-23 20:27:57', 1, 0),
-('1690175', 'igor100013@gmail.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', '2018-09-26 22:31:35', 1, 1),
-('', '', 'e30ec79e269a371a859b86d6a6bfbabfaefd13d6bfe41c9295ca4e853d9a6ba0', '2018-09-26 03:00:00', 1, 0),
-('1590014', 'agathasiqueira19@gmail.com', '7192704fdc326ded606d89837ac63e3ed505ce2da4b711aa21be16c031633f71', '2018-09-27 00:53:44', 1, 0);
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

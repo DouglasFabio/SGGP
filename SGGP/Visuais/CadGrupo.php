@@ -5,11 +5,9 @@
 
         if (!isset($_SESSION)) session_start();
 
-        if (!isset($_SESSION['AdmLogin']) && !isset($_SESSION['LiderLogin'])) {
-
-          session_destroy();
+        if (!isset($_SESSION['AdmLogin'])) {
             
-          header("Location: PaginaInicial.php"); exit;
+          header("Location: Painel.php"); exit;
 
         }
 

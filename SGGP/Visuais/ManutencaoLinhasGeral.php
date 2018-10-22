@@ -2,7 +2,9 @@
 <html dir="pag" lang="en">
 
     <script>
-    
+function testa(){
+    document.getElementById("h5modal").innerHTML = "Adicionar grande area!";
+}
         
 function clicalinha(){
     document.getElementById("linha_mostra").focus();
@@ -10,22 +12,37 @@ function clicalinha(){
     document.getElementById("btnEdita").disabled = false;
     document.getElementById("btnExclui").disabled = false;
     document.getElementById("linha_mostra").value = linha;
-    document.getElementById("linhanome").innerHTML = linha;
-    document.getElementById("linhanome2").innerHTML = linha;
     document.getElementById("linha_edita").value = linha;
     document.getElementById("linha_exclui").value = linha;
-}    
+    document.getElementById("linha_add").value = linha;
+}   
+function clicalinha2(linha){
+    document.getElementById("btnAdd").disabled = false;
+    document.getElementById("btnEdita").disabled = false;
+    document.getElementById("btnExclui").disabled = false;
+    document.getElementById("linha_mostra").value = linha;
+    document.getElementById("linha_edita").value = linha;
+    document.getElementById("linha_exclui").value = linha;
+    document.getElementById("linha_add").value = linha;
+}  
+function clicalinha3(linha){
+    document.getElementById("btnAdd").disabled = true;
+    document.getElementById("btnEdita").disabled = false;
+    document.getElementById("btnExclui").disabled = false;
+    document.getElementById("linha_mostra").value = linha;
+    document.getElementById("linha_edita").value = linha;
+    document.getElementById("linha_exclui").value = linha;
+    document.getElementById("linha_add").value = linha;
+} 
 
     </script>
     <?php
 
         if (!isset($_SESSION)) session_start();
 
-        if (!isset($_SESSION['AdmLogin']) && !isset($_SESSION['LiderLogin'])) {
-
-          session_destroy();
+        if (!isset($_SESSION['AdmLogin'])) {
             
-          header("Location: PaginaInicial.php"); exit;
+          header("Location: Painel.php"); exit;
 
         }
 
@@ -115,16 +132,7 @@ function clicalinha(){
                     
                 </div>
                 
-                <div class="container-fluid">
-
-                    <?php
-                    
-                        include("../Uteis/ScriptValidaCadUsuarios.php");
-                    
-                    
-                    
-                    ?>
-                    
+                <div class="container-fluid"> 
                     <div class="row">
                    
                     <div class="col-12">
@@ -156,6 +164,10 @@ function clicalinha(){
                                                         <label><p>Esse MENU se encontra em 4 níveis:<br><br>
                                                                     Grandes Áreas -> Sub-Areas -> Especialidades -> Sub-especialidade (linha de pesquisa).
                                                                </p>
+                                                               <br/>
+                                                               <p>
+                                                                   Selecione a linha que deseja realizar a manutenção e clique em um dos botões ao lado.
+                                                               </p>
                                                         </label>
                                                    
                                                     <div class="row"> 
@@ -164,7 +176,7 @@ function clicalinha(){
                                                     </div>
                                                         <div class="col-lg-6"> 
                                                     Gerenciar:
-                                                    <label><button type="submit" class="btn btn-outline-primary" data-toggle="modal" data-target="#Adiciona">Adicionar</button></label>
+                                                    <label><button type="submit" onClick="testa();" class="btn btn-outline-primary" data-toggle="modal" id="btnAdd" data-target="#Adiciona">Adicionar</button></label>
                                                     
                                                     <label><button type="submit" class="btn btn-outline-primary" data-toggle="modal" data-target="#Editar" id="btnEdita" disabled="disabled">Editar</button></label>
                                                             
@@ -207,7 +219,7 @@ function clicalinha(){
                                                                         //mostra grande areas
                                                                      
                                                                         while ($resultado2->fetch()) {
-                                                                            printf('<li> <a href="#" onClick="clicalinha();" data-toggle="collapse" data-target="#id'.$codigo2.'" class="list-group-item list-group-item-action" style="background-color:#a6a6a6; margin-left:-40px; width:initial;"> <span class="">'.$nome2.' </span> <span class="fa fa-chevron-left pull-right"></span> </a> <ul class="collapse" id="id'.$codigo2.'" style="list-style-type:none">');
+                                                                            printf('<li> <a href="#" onClick="clicalinha2(\''.$nome2.'\');" data-toggle="collapse" data-target="#id'.$codigo2.'" class="list-group-item list-group-item-action" style="background-color:#a6a6a6; margin-left:-40px; width:initial;"> <span class="">'.strtoupper($nome2).' </span> <span class="fa fa-chevron-left pull-right"></span> </a> <ul class="collapse" id="id'.$codigo2.'" style="list-style-type:none">');
 
                                                                             $linhas = busca($cont);
                                                                             
@@ -215,14 +227,14 @@ function clicalinha(){
                                                                             // mostra sub areas
                                                                            
                                                                             foreach($linhas as $row){
-                                                                                printf ('<li><a href="#" onClick="clicalinha();" data-toggle="collapse" data-target="#id'.$row['codigo'].'" class="list-group-item list-group-item-action" style="background-color:#bfbfbf; margin-left:-80px; width:initial;" > <span class=""> '.$row['nome'].' </span> <span class="fa fa-chevron-left pull-right"></span> </a><ul class="collapse" id="id'.$row['codigo'].'" style="list-style-type:none">');
+                                                                                printf ('<li><a href="#" onClick="clicalinha2(\''.$row['nome'].'\');" data-toggle="collapse" data-target="#id'.$row['codigo'].'" class="list-group-item list-group-item-action" style="background-color:#bfbfbf; margin-left:-80px; width:initial;" > <span class=""> '.strtoupper($row['nome']).' </span> <span class="fa fa-chevron-left pull-right"></span> </a><ul class="collapse" id="id'.$row['codigo'].'" style="list-style-type:none">');
                                                                                 
                                                                                 $linhas2 = busca2($cont2);
                                                                                 
                                                                                 // mostra especialidades
                                                                             
                                                                                 foreach($linhas2 as $row2){
-                                                                                    printf ('<li><a href="#" data-toggle="collapse" onClick="clicalinha();" data-target="#id'.$row2['codigo'].'" class="list-group-item list-group-item-action" style="background-color:#d9d9d9; margin-left:-120px; width:initial;"> <span class=""> '.$row2['nome'].'</span></a><ul class="collapse" id="id'.$row2['codigo'].'" style="list-style-type:none">');
+                                                                                    printf ('<li><a href="#" data-toggle="collapse" onClick="clicalinha2(\''.$row2['nome'].'\');" data-target="#id'.$row2['codigo'].'" class="list-group-item list-group-item-action" style="background-color:#d9d9d9; margin-left:-120px; width:initial;"> <span class=""> '.strtoupper($row2['nome']).'</span></a><ul class="collapse" id="id'.$row2['codigo'].'" style="list-style-type:none">');
                                                                                     
                                                                                     $linhas3 = busca3($cont3);
                                                                                    
@@ -230,7 +242,7 @@ function clicalinha(){
                                                                                     //mostra sub-especialidades
                                                                                    
                                                                                     foreach($linhas3 as $row3){
-                                                                                        printf ('<li><a onClick="clicalinha();" class="list-group-item" style="background-color:#f2f2f2; margin-left:-160px; width:initial;">'.$row3['nome'].'</a></li>');   
+                                                                                        printf ('<li><a onClick="clicalinha3(\''.$row3['nome'].'\');" class="list-group-item" style="background-color:#f2f2f2; margin-left:-160px; width:initial;">'.strtoupper($row3['nome']).'</a></li>');   
                                                                                     }
                                                                                     printf("</ul></li>");
                                                                                     $cont3++;                   
@@ -261,16 +273,17 @@ function clicalinha(){
                         
                     </div>
                 </div>
-                <form action="../Funcionais/NovaLinha.php" method="post">
+                <form action="../Visuais/NovaLinha.php" method="post">
                     <div class="modal fade" id="Adiciona" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Adicionar uma nova linha!</h5>
+                            <h5 class="modal-title" id="h5modal">Adicionar uma nova linha dentro de: </h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Cancelar">
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
+                            <input type="text" class="form-control" style="height: 47px;" id="linha_add" name="linha_add" readonly>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                             <button class="btn btn-primary" name="sigla" value="'.$sigla.'">Adicionar</button>
@@ -285,12 +298,11 @@ function clicalinha(){
                         <div class="modal-content">
                           <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Editar a linha: </h5>
-                              <h5 class="modal-title" id="linhanome2"> </h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Cancelar">
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
-                            <input type="text" class="form-control" style="height: 47px;" id="linha_mostra" name="linha_edita" hidden>
+                            <input type="text" class="form-control" style="height: 47px;" id="linha_edita" name="linha_edita" readonly>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                             <button class="btn btn-primary" name="sigla" value="'.$sigla.'">Editar</button>
@@ -305,12 +317,11 @@ function clicalinha(){
                         <div class="modal-content">
                           <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Excluir a linha: </h5>
-                              <h5 class="modal-title" id="linhanome"> </h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Cancelar">
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
-                            <input type="text" class="form-control" style="height: 47px;" id="linha_mostra" name="linha_exclui" hidden>
+                            <input type="text" class="form-control" style="height: 47px;" id="linha_exclui" name="linha_exclui" readonly>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                             <button class="btn btn-primary" name="sigla" value="'.$sigla.'">Excluir</button>

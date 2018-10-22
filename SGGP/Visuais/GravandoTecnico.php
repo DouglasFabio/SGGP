@@ -130,7 +130,7 @@
                         }
                     
                     
-                    if ( isset( $_FILES[ 'arquivo' ][ 'name' ] ) && $_FILES[ 'arquivo' ][ 'error' ] == 0) {
+                    if ( isset( $_FILES[ 'arquivo' ][ 'name' ] ) && $_FILES[ 'arquivo' ][ 'error' ] == 0 && $_FILES['arquivo']['size'] < 10000000) {
                         
                         $arquivo_tmp = $_FILES[ 'arquivo' ][ 'tmp_name' ];
                         $nome = $_FILES[ 'arquivo' ][ 'name' ];
