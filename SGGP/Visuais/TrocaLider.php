@@ -6,11 +6,10 @@
 
         if (!isset($_SESSION)) session_start();
 
-        if (!isset($_SESSION['LiderLogin'])&&!isset($_SESSION['AdmLogin'])) {
+        if (!isset($_SESSION['LiderLogin'])) {
 
-          session_destroy();
 
-          header("Location: ../Visuais/Login.php"); exit;
+          header("Location: ../Visuais/Painel.php"); exit;
 
         }
 

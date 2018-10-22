@@ -4,10 +4,19 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <?php
+
+        if (!isset($_SESSION)) session_start();
+
+        if (!isset($_SESSION['LiderLogin'])) {
+            
+          header("Location: ../Visuais/Painel.php"); exit;
+
+        }
+
+
+        include("../Uteis/HeadPainel.php");
         
-            include("../Uteis/HeadPainel.php");
-        
-        ?>
+    ?>
         
     </head>
     <body>
