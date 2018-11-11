@@ -1,4 +1,4 @@
-<div class="scroll-sidebar" style="position:fixed;">
+<div class="scroll-sidebar">
    
     <nav class="sidebar-nav">
        

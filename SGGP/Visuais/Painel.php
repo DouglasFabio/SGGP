@@ -393,7 +393,15 @@
                                                                               </div>
                                                                             </div>
                                                                           </div>
-                                                                        </div></form></tr>');
+                                                                        </div></form>
+                                                                        <td>
+                                                                        <form action="Equipamentos.php" method="post"><button class="btn btn-outline-info" style="padding:1px;" name="sigla" value="'.$sigla.'">EQUIPAMENTOS</button><br><br/></form>
+                                                                       
+                                                                       <form action="ProjetosPesquisa.php" method="post"><button class="btn btn-outline-info" style="padding:1px;" name="sigla" value="'.$sigla.'">PROJETOS DE PESQUISA</button><br><br></form>
+                                                                       
+                                                                       <form action="Publicacoes.php" method="post"><button class="btn btn-outline-info" style="padding:1px;" name="sigla" value="'.$sigla.'">PUBLICAÇÕES</button><br><br></form>
+                                                                        </td>
+                                                                        </tr>');
                                                             }else{
                                                                 printf('<tr><td>'.$sigla.'</td>
                                                                         <td>'.$nome.'</td>

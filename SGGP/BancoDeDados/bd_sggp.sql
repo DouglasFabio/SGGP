@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: 21-Out-2018 às 20:57
+-- Generation Time: 10-Nov-2018 às 00:24
 -- Versão do servidor: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -23,6 +23,56 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `bd_sggp` DEFAULT CHARACTER SET utf8 COLLATE utf8_swedish_ci;
 USE `bd_sggp`;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_alunos`
+--
+
+DROP TABLE IF EXISTS `tb_alunos`;
+CREATE TABLE IF NOT EXISTS `tb_alunos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `curso` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `link` text COLLATE utf8_swedish_ci NOT NULL,
+  `data_inicio` date NOT NULL,
+  `data_fim` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Extraindo dados da tabela `tb_alunos`
+--
+
+INSERT INTO `tb_alunos` (`id`, `nome`, `curso`, `link`, `data_inicio`, `data_fim`) VALUES
+(1, 'aluno', 'uma', 'malmdn', '2018-11-13', '2018-11-15');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_equipamentos`
+--
+
+DROP TABLE IF EXISTS `tb_equipamentos`;
+CREATE TABLE IF NOT EXISTS `tb_equipamentos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `grupo` varchar(10) COLLATE utf8_swedish_ci NOT NULL,
+  `nome` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `descricao` text COLLATE utf8_swedish_ci NOT NULL,
+  `data_inicio` date NOT NULL,
+  `data_fim` date DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `grupo` (`grupo`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Extraindo dados da tabela `tb_equipamentos`
+--
+
+INSERT INTO `tb_equipamentos` (`id`, `grupo`, `nome`, `descricao`, `data_inicio`, `data_fim`) VALUES
+(1, 'GDI', 'Equipamento Teste', 'Este é um equipamento cadastrado para teste.', '2018-11-01', NULL),
+(2, 'GDI', 'Equipamento Teste Cadastro', 'Equipamento cadastrado para testar o cadastro de equipamentos.', '2018-11-05', '2018-12-31');
 
 -- --------------------------------------------------------
 
@@ -433,6 +483,9 @@ CREATE TABLE IF NOT EXISTS `tb_grupospesquisa` (
 -- Extraindo dados da tabela `tb_grupospesquisa`
 --
 
+INSERT INTO `tb_grupospesquisa` (`nome`, `sigla`, `lider`, `situacao`, `email`, `link`, `descricao`, `logotipo`, `data_inicio`) VALUES
+('Grupo do Igor', 'GDI', '1690175', 1, 'grupo@email.com', 'grupo.cnpq.com', 'Um grupo criado para testes do sistema.', '../Uteis/Imagens/GruposPesquisa/GDI.jpg', '2018-08'),
+('Grupo de Pesquisa de Esporte e Trabalho', 'GPET', '1690175', 1, '', 'GPET.Link.com', 'Grupo de Pesquisa para esporte e trabalho.', '../Uteis/Imagens/GruposPesquisa/GPET.jpg', '2018-11');
 
 -- --------------------------------------------------------
 
@@ -468,7 +521,8 @@ CREATE TABLE IF NOT EXISTS `tb_lideres` (
 -- Extraindo dados da tabela `tb_lideres`
 --
 
-
+INSERT INTO `tb_lideres` (`lider`, `link`, `nome`, `foto`) VALUES
+('1690175', 'igor.lattes.com.br', 'Igor de Moraes Sampaio', '../Uteis/Imagens/Lideres/1690175.jpg');
 
 -- --------------------------------------------------------
 
@@ -486,13 +540,14 @@ CREATE TABLE IF NOT EXISTS `tb_linhasdocentes` (
   PRIMARY KEY (`id`),
   KEY `docente` (`docente`),
   KEY `linha_pesquisa` (`linha_pesquisa`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 --
 -- Extraindo dados da tabela `tb_linhasdocentes`
 --
 
-
+INSERT INTO `tb_linhasdocentes` (`id`, `inicio_vinculo`, `fim_vinculo`, `docente`, `linha_pesquisa`) VALUES
+(9, '2018-08-25', NULL, 41, 10304037);
 
 -- --------------------------------------------------------
 
@@ -512,13 +567,16 @@ CREATE TABLE IF NOT EXISTS `tb_linhasgrupos` (
   PRIMARY KEY (`id`),
   KEY `grupo` (`grupo`) USING BTREE,
   KEY `codigo_capes` (`codigo_capes`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 --
 -- Extraindo dados da tabela `tb_linhasgrupos`
 --
 
-
+INSERT INTO `tb_linhasgrupos` (`id`, `grupo`, `inicio_vinculo`, `fim_vinculo`, `codigo_capes`, `descricao`, `data_cad`) VALUES
+(12, 'GDI', '2018-08-13', NULL, 10304037, 'Um linha vinculada ao grupo para testes do sistema.', '2018-11-02'),
+(13, 'GPET', '2018-11-01', NULL, 50502050, 'Linha para saúde animal.', '2018-11-05'),
+(14, 'GDI', '2018-11-05', NULL, 30404010, 'linha do mauro', '2018-11-05');
 
 -- --------------------------------------------------------
 
@@ -541,7 +599,15 @@ CREATE TABLE IF NOT EXISTS `tb_participantes` (
   `tipo` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `grupo` (`grupo`)
-) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Extraindo dados da tabela `tb_participantes`
+--
+
+INSERT INTO `tb_participantes` (`id`, `nome`, `link`, `formacao_acad`, `nome_curso`, `grupo`, `data_sistema`, `data_inclusao`, `data_exclusao`, `foto`, `tipo`) VALUES
+(41, 'Douglas Fabio', 'Douglas.lattes.com', 'Doutorado', 'Curso teste do sistema.', 'GDI', '2018-11-02', '2018-08-25', NULL, '../Uteis/Imagens/Docentes/Douglas Fabio.jpg', 1),
+(42, 'Meuri Jecib Hinireti', 'mjh.link.google.com', 'Doutorado', 'PHP', 'GDI', '2018-11-05', '2018-11-05', NULL, '../Uteis/Imagens/Docentes/Meuri Jecib Hinireti.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -569,6 +635,71 @@ CREATE TABLE IF NOT EXISTS `tb_permissoes` (
 INSERT INTO `tb_permissoes` (`id`, `cdusuarios`, `cdgrupo`, `cdlinha`, `cdtecnico`, `cddocente`, `edgrupo`, `permissoes`) VALUES
 (0, 1, 1, 1, 0, 0, 1, 1),
 (1, 0, 0, 0, 1, 1, 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_projetospesquisa`
+--
+
+DROP TABLE IF EXISTS `tb_projetospesquisa`;
+CREATE TABLE IF NOT EXISTS `tb_projetospesquisa` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `docente` int(11) NOT NULL,
+  `linha` int(11) NOT NULL,
+  `grupo` varchar(20) COLLATE utf8_swedish_ci NOT NULL,
+  `tipo` varchar(25) COLLATE utf8_swedish_ci NOT NULL,
+  `data_inicio` date NOT NULL,
+  `data_fim` date DEFAULT NULL,
+  `aluno` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `docente` (`docente`),
+  KEY `linha` (`linha`),
+  KEY `aluno` (`aluno`),
+  KEY `grupo` (`grupo`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Extraindo dados da tabela `tb_projetospesquisa`
+--
+
+INSERT INTO `tb_projetospesquisa` (`id`, `titulo`, `docente`, `linha`, `grupo`, `tipo`, `data_inicio`, `data_fim`, `aluno`) VALUES
+(2, 'Projetos de Pesquisa', 41, 10304037, 'GDI', 'Outras Bolsa', '2018-11-23', NULL, NULL),
+(4, 'Projetos de Pesquisa', 41, 10304037, 'GDI', 'Outras Bolsa', '2018-11-23', NULL, 1),
+(5, 'novo', 41, 10304037, 'GDI', 'PIBIC', '2018-02-25', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_publicacoes`
+--
+
+DROP TABLE IF EXISTS `tb_publicacoes`;
+CREATE TABLE IF NOT EXISTS `tb_publicacoes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `grupo` varchar(10) COLLATE utf8_swedish_ci NOT NULL,
+  `projeto` int(11) DEFAULT NULL,
+  `titulo` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `tipo` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `data` date NOT NULL,
+  `linha` int(11) DEFAULT NULL,
+  `docente` int(11) DEFAULT NULL,
+  `referencia` text COLLATE utf8_swedish_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `projeto` (`projeto`),
+  KEY `linha` (`linha`),
+  KEY `docente` (`docente`),
+  KEY `grupo` (`grupo`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Extraindo dados da tabela `tb_publicacoes`
+--
+
+INSERT INTO `tb_publicacoes` (`id`, `grupo`, `projeto`, `titulo`, `tipo`, `data`, `linha`, `docente`, `referencia`) VALUES
+(1, 'GDI', 5, 'nova pub', 'Anais', '2018-10-15', 0, 0, 'asfdasfdasfdasfda'),
+(2, 'GDI', 5, 'nova pub', 'Anais', '2018-10-15', NULL, NULL, 'asfdasfdasfdasfda');
 
 -- --------------------------------------------------------
 
@@ -1573,12 +1704,6 @@ CREATE TABLE IF NOT EXISTS `tb_tecnicos` (
   `participante` int(11) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
---
--- Extraindo dados da tabela `tb_tecnicos`
---
-
-
-
 -- --------------------------------------------------------
 
 --
@@ -1600,7 +1725,9 @@ CREATE TABLE IF NOT EXISTS `tb_usuarios` (
 -- Extraindo dados da tabela `tb_usuarios`
 --
 
-
+INSERT INTO `tb_usuarios` (`login`, `email`, `senha`, `data`, `tipo`, `acesso`) VALUES
+('Administrador', 'Igor100013@gmail.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', '2018-11-02 20:32:33', 0, 1),
+('1690175', 'igor100013@gmail.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', '2018-11-02 20:33:46', 1, 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

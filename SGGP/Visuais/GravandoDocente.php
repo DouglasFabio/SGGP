@@ -102,9 +102,17 @@
                         $hoje = date("Y-m-d");
                         
                         $qtdLinhasSelecionadas = 0;
+                        $data_linhaok =[];
                         // Verificando quantas linhas (e suas datas) foram selecionadas
                         foreach($linhas_docente as $k => $v){ 
                             $qtdLinhasSelecionadas++;  
+                        }
+                        $contdatas = 0;
+                        foreach($data_linha as $k => $v){
+                            if($v != ""){
+                                $data_linhaok[$contdatas] = $v;
+                                $contdatas++;
+                            }
                         }
                     
                         if($formacao == "1"){
@@ -173,7 +181,8 @@
                                         $i = 0;
                                         while($i < $qtdLinhasSelecionadas){
                                             $insereLinhasDocentes  = "INSERT INTO `tb_linhasdocentes` (`inicio_vinculo`,`docente`, `linha_pesquisa`)
-                                                                           VALUES ('$data_linha[$i]', '".$saida['id']."', '$linhas_docente[$i]');";
+                                                                           VALUES ('$data_linhaok[$i]', '".$saida['id']."', '$linhas_docente[$i]');";
+                                            
                                             $conexao->query($insereLinhasDocentes); 
                                             $i++;
                                         }    

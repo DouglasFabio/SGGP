@@ -235,7 +235,172 @@
                             else {
                                 printf( "Erro no SQL!");
                             }
-                            $resultado2->close();   
+                            $resultado3->close();   
+                        ?>
+                </tbody>
+                  
+                </table>
+              
+              <br>
+              <p class="post-meta"> Projetos de Pesquisa                
+              </p>
+              <table class="table table-hover">
+                               
+                    <thead>
+                        <tr>
+                            <th scope="col">Título</th>
+                            <th scope="col">Orientador</th>
+                            <th scope="col">Orientado</th>
+                            <th scope="col">Área de Pesquisa</th>
+                            <th scope="col">Bolsa</th>
+                            <th scope="col">Publicações</th>
+                        </tr>
+                    </thead>
+                  <tbody>
+                       <?php
+                        
+                        $busca4 = "SELECT p.id, p.titulo, d.nome, a.nome, l.nome, p.tipo FROM tb_projetospesquisa as p INNER JOIN tb_participantes as d ON p.docente = d.id INNER JOIN tb_alunos as a ON p.aluno = a.id INNER JOIN tb_subespecialidades as l ON p.linha = l.codigo WHERE p.grupo = '".$sigla."';";
+
+                            if ($resultado4 = $conexao->prepare($busca4)) {
+
+                                $resultado4->execute();
+
+                                $resultado4->bind_result($id, $titulo, $docente, $discente, $linha, $bolsa);
+
+                                while ($resultado4->fetch()) {
+                                    printf('<tr>
+                                              <td>'.$titulo.'</td>
+                                              <td>'.$docente.'</td>
+                                              <td>'.$discente.'</td>
+                                              <td>'.$linha.'</td>
+                                              <td>'.$bolsa.'</td>
+                                              <td><form action="../Visuais/PubliProj.php" method="post">
+                                                <input type="text" name="proj" value="'.$id.'" hidden>
+                                                <input type="text" name="sigla" value="'.$sigla.'" hidden>
+                                                <button type="submit" class="btn btn-outline-info" style="color: #0085a1;">PUBLICAÇÕES</button></form></td>
+                                            </tr>');
+                                }   
+                            }
+                            else {
+                                printf( "Erro no SQL!");
+                            }
+                            $resultado4->close();   
+                        ?>
+                </tbody>
+                  
+                </table>
+              
+              <br>
+              <p class="post-meta"> Publicações do Grupo                
+              </p>
+              <table class="table table-hover">
+                               
+                    <thead>
+                        <tr>
+                            <th scope="col">Referência</th>
+                        </tr>
+                    </thead>
+                  <tbody>
+                       <?php
+
+                        $busca5 = "SELECT referencia FROM `tb_publicacoes` WHERE grupo = '".$sigla."' ORDER BY data DESC";
+
+                            if ($resultado5 = $conexao->prepare($busca5)) {
+
+                                $resultado5->execute();
+
+                                $resultado5->bind_result($ref);
+
+                                while ($resultado5->fetch()) {
+                                        printf('<tr>
+                                                <td>'.$ref.'</td>
+                                                </tr>');
+                                    
+                                }   
+                            }
+                            else {
+                                printf( "Erro no SQL!");
+                            }
+                            $resultado5->close();   
+                        ?>
+                </tbody>
+                  
+                </table>
+              
+              <br>
+              <p class="post-meta"> Discentes do Grupo                
+              </p>
+              <table class="table table-hover">
+                               
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Curso</th>
+                            <th scope="col">Lattes</th>
+                            <th scope="col">Linha de Pesquisa</th>
+                        </tr>
+                    </thead>
+                  <tbody>
+                       <?php
+
+                        $busca6 = "SELECT a.nome, a.curso, a.link, l.nome FROM tb_alunos as a INNER JOIN tb_projetospesquisa as p ON a.id = p.aluno INNER JOIN tb_subespecialidades as l ON p.linha = l.codigo WHERE p.grupo = '".$sigla."';";
+
+                            if ($resultado6 = $conexao->prepare($busca6)) {
+
+                                $resultado6->execute();
+
+                                $resultado6->bind_result($nome, $curso, $link, $linha);
+
+                                while ($resultado6->fetch()) {
+                                    printf('<tr>
+                                            <td>'.$nome.'</td>
+                                            <td>'.$curso.'</td>
+                                            <td>'.$link.'</td>
+                                            <td>'.$linha.'</td>
+                                            </tr>');
+                                }   
+                            }
+                            else {
+                                printf( "Erro no SQL!");
+                            }
+                            $resultado6->close();   
+                        ?>
+                </tbody>
+                  
+                </table>
+              <br>
+              <p class="post-meta"> Equipamentos disponiveis do grupo                
+              </p>
+              <table class="table table-hover">
+                               
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Descrição</th>
+                        </tr>
+                    </thead>
+                  <tbody>
+                       <?php
+
+                        $busca7 = "SELECT nome, descricao FROM tb_equipamentos WHERE grupo = '".$sigla."'; ";
+
+                            if ($resultado7 = $conexao->prepare($busca7)) {
+
+                                $resultado7->execute();
+
+                                $resultado7->bind_result($nome, $descricao);
+
+                                while ($resultado7->fetch()) {
+                                    printf('<tr>
+                                            <td>'.$nome.'</td>
+                                            <td>'.$descricao.'</td>
+                                            </tr>');
+                                }   
+                            }
+                            else {
+                                printf( "Erro no SQL!");
+                            }
+                            $resultado7->close();   
                         ?>
                 </tbody>
                   

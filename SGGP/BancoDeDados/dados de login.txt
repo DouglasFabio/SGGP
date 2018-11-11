@@ -1,0 +1,4 @@
+usuario        senha
+
+Administrador  12345
+1690175	       12345
