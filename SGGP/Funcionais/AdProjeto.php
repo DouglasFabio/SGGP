@@ -72,7 +72,7 @@
         
                 include("../Uteis/ScriptsPainel.php");
                 if($tipo_bolsa == "Outros"){
-                    echo $insereProjetoPesquisa = "INSERT INTO `tb_projetospesquisa` (`titulo`, `docente`, `linha`,`grupo`,`tipo`, `data_inicio`) 
+                    $insereProjetoPesquisa = "INSERT INTO `tb_projetospesquisa` (`titulo`, `docente`, `linha`,`grupo`,`tipo`, `data_inicio`) 
                                                                                         VALUES ('$titulo', '$docente', '".$saida['codigo']."','$sigla','".$outra_bolsa."','$data_vinculo');";
                 }
                 else{

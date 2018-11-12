@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: 10-Nov-2018 às 00:24
--- Versão do servidor: 5.7.21
--- PHP Version: 5.6.35
+-- Generation Time: Nov 11, 2018 at 10:04 PM
+-- Server version: 5.7.19
+-- PHP Version: 7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -27,7 +27,7 @@ USE `bd_sggp`;
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_alunos`
+-- Table structure for table `tb_alunos`
 --
 
 DROP TABLE IF EXISTS `tb_alunos`;
@@ -39,19 +39,20 @@ CREATE TABLE IF NOT EXISTS `tb_alunos` (
   `data_inicio` date NOT NULL,
   `data_fim` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 --
--- Extraindo dados da tabela `tb_alunos`
+-- Dumping data for table `tb_alunos`
 --
 
 INSERT INTO `tb_alunos` (`id`, `nome`, `curso`, `link`, `data_inicio`, `data_fim`) VALUES
-(1, 'aluno', 'uma', 'malmdn', '2018-11-13', '2018-11-15');
+(1, '----', '----', 'Não excluir', '2001-01-01', NULL),
+(3, 'Discente Teste', 'Curso do Discente Teste', 'discente.lattes.com', '2018-11-01', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_equipamentos`
+-- Table structure for table `tb_equipamentos`
 --
 
 DROP TABLE IF EXISTS `tb_equipamentos`;
@@ -64,20 +65,19 @@ CREATE TABLE IF NOT EXISTS `tb_equipamentos` (
   `data_fim` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `grupo` (`grupo`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 --
--- Extraindo dados da tabela `tb_equipamentos`
+-- Dumping data for table `tb_equipamentos`
 --
 
 INSERT INTO `tb_equipamentos` (`id`, `grupo`, `nome`, `descricao`, `data_inicio`, `data_fim`) VALUES
-(1, 'GDI', 'Equipamento Teste', 'Este é um equipamento cadastrado para teste.', '2018-11-01', NULL),
-(2, 'GDI', 'Equipamento Teste Cadastro', 'Equipamento cadastrado para testar o cadastro de equipamentos.', '2018-11-05', '2018-12-31');
+(3, 'GDT', 'Equipamento teste', 'Equipamento cadastrado para teste', '2018-10-01', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_especialidades`
+-- Table structure for table `tb_especialidades`
 --
 
 DROP TABLE IF EXISTS `tb_especialidades`;
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `tb_especialidades` (
 ) ENGINE=MyISAM AUTO_INCREMENT=764 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 --
--- Extraindo dados da tabela `tb_especialidades`
+-- Dumping data for table `tb_especialidades`
 --
 
 INSERT INTO `tb_especialidades` (`id`, `id_subarea`, `codigo`, `nome`) VALUES
@@ -432,7 +432,7 @@ INSERT INTO `tb_especialidades` (`id`, `id_subarea`, `codigo`, `nome`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_grandesareas`
+-- Table structure for table `tb_grandesareas`
 --
 
 DROP TABLE IF EXISTS `tb_grandesareas`;
@@ -444,7 +444,7 @@ CREATE TABLE IF NOT EXISTS `tb_grandesareas` (
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 --
--- Extraindo dados da tabela `tb_grandesareas`
+-- Dumping data for table `tb_grandesareas`
 --
 
 INSERT INTO `tb_grandesareas` (`id`, `codigo`, `nome`) VALUES
@@ -461,7 +461,7 @@ INSERT INTO `tb_grandesareas` (`id`, `codigo`, `nome`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_grupospesquisa`
+-- Table structure for table `tb_grupospesquisa`
 --
 
 DROP TABLE IF EXISTS `tb_grupospesquisa`;
@@ -480,17 +480,16 @@ CREATE TABLE IF NOT EXISTS `tb_grupospesquisa` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Extraindo dados da tabela `tb_grupospesquisa`
+-- Dumping data for table `tb_grupospesquisa`
 --
 
 INSERT INTO `tb_grupospesquisa` (`nome`, `sigla`, `lider`, `situacao`, `email`, `link`, `descricao`, `logotipo`, `data_inicio`) VALUES
-('Grupo do Igor', 'GDI', '1690175', 1, 'grupo@email.com', 'grupo.cnpq.com', 'Um grupo criado para testes do sistema.', '../Uteis/Imagens/GruposPesquisa/GDI.jpg', '2018-08'),
-('Grupo de Pesquisa de Esporte e Trabalho', 'GPET', '1690175', 1, '', 'GPET.Link.com', 'Grupo de Pesquisa para esporte e trabalho.', '../Uteis/Imagens/GruposPesquisa/GPET.jpg', '2018-11');
+('Grupo De Testes', 'GDT', '1690175', 1, 'teste@email.com', 'grupo.lattes.com', 'Grupo criado para teste do sistema.', '../Uteis/Imagens/GruposPesquisa/GDT.jpg', '2018-08');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_liderancas`
+-- Table structure for table `tb_liderancas`
 --
 
 DROP TABLE IF EXISTS `tb_liderancas`;
@@ -505,7 +504,7 @@ CREATE TABLE IF NOT EXISTS `tb_liderancas` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_lideres`
+-- Table structure for table `tb_lideres`
 --
 
 DROP TABLE IF EXISTS `tb_lideres`;
@@ -518,16 +517,16 @@ CREATE TABLE IF NOT EXISTS `tb_lideres` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Extraindo dados da tabela `tb_lideres`
+-- Dumping data for table `tb_lideres`
 --
 
 INSERT INTO `tb_lideres` (`lider`, `link`, `nome`, `foto`) VALUES
-('1690175', 'igor.lattes.com.br', 'Igor de Moraes Sampaio', '../Uteis/Imagens/Lideres/1690175.jpg');
+('1690175', 'link.lattes.com', 'Igor de Moraes Sampaio', '../Uteis/Imagens/Lideres/1690175.jpg');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_linhasdocentes`
+-- Table structure for table `tb_linhasdocentes`
 --
 
 DROP TABLE IF EXISTS `tb_linhasdocentes`;
@@ -540,19 +539,21 @@ CREATE TABLE IF NOT EXISTS `tb_linhasdocentes` (
   PRIMARY KEY (`id`),
   KEY `docente` (`docente`),
   KEY `linha_pesquisa` (`linha_pesquisa`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 --
--- Extraindo dados da tabela `tb_linhasdocentes`
+-- Dumping data for table `tb_linhasdocentes`
 --
 
 INSERT INTO `tb_linhasdocentes` (`id`, `inicio_vinculo`, `fim_vinculo`, `docente`, `linha_pesquisa`) VALUES
-(9, '2018-08-25', NULL, 41, 10304037);
+(10, '2018-09-26', NULL, 43, 10304037),
+(11, '2018-09-26', NULL, 44, 10304037),
+(12, '2018-09-27', NULL, 44, 10303057);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_linhasgrupos`
+-- Table structure for table `tb_linhasgrupos`
 --
 
 DROP TABLE IF EXISTS `tb_linhasgrupos`;
@@ -567,21 +568,20 @@ CREATE TABLE IF NOT EXISTS `tb_linhasgrupos` (
   PRIMARY KEY (`id`),
   KEY `grupo` (`grupo`) USING BTREE,
   KEY `codigo_capes` (`codigo_capes`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 --
--- Extraindo dados da tabela `tb_linhasgrupos`
+-- Dumping data for table `tb_linhasgrupos`
 --
 
 INSERT INTO `tb_linhasgrupos` (`id`, `grupo`, `inicio_vinculo`, `fim_vinculo`, `codigo_capes`, `descricao`, `data_cad`) VALUES
-(12, 'GDI', '2018-08-13', NULL, 10304037, 'Um linha vinculada ao grupo para testes do sistema.', '2018-11-02'),
-(13, 'GPET', '2018-11-01', NULL, 50502050, 'Linha para saúde animal.', '2018-11-05'),
-(14, 'GDI', '2018-11-05', NULL, 30404010, 'linha do mauro', '2018-11-05');
+(15, 'GDT', '2018-08-25', NULL, 10304037, 'Linha vinculada para testes.', '2018-11-11'),
+(16, 'GDT', '2018-09-01', NULL, 10303057, 'Segunda linha vinculada para testes.', '2018-11-11');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_participantes`
+-- Table structure for table `tb_participantes`
 --
 
 DROP TABLE IF EXISTS `tb_participantes`;
@@ -599,20 +599,20 @@ CREATE TABLE IF NOT EXISTS `tb_participantes` (
   `tipo` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `grupo` (`grupo`)
-) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 --
--- Extraindo dados da tabela `tb_participantes`
+-- Dumping data for table `tb_participantes`
 --
 
 INSERT INTO `tb_participantes` (`id`, `nome`, `link`, `formacao_acad`, `nome_curso`, `grupo`, `data_sistema`, `data_inclusao`, `data_exclusao`, `foto`, `tipo`) VALUES
-(41, 'Douglas Fabio', 'Douglas.lattes.com', 'Doutorado', 'Curso teste do sistema.', 'GDI', '2018-11-02', '2018-08-25', NULL, '../Uteis/Imagens/Docentes/Douglas Fabio.jpg', 1),
-(42, 'Meuri Jecib Hinireti', 'mjh.link.google.com', 'Doutorado', 'PHP', 'GDI', '2018-11-05', '2018-11-05', NULL, '../Uteis/Imagens/Docentes/Meuri Jecib Hinireti.jpg', 1);
+(43, 'Docente Teste', 'docente.lattes.com', 'Doutorado', 'Doutorado Teste', 'GDT', '2018-11-11', '2018-09-25', NULL, '../Uteis/Imagens/Docentes/Docente Teste.jpg', 1),
+(44, 'Docente com mais linhas', 'docentelinhas.lattes.com', 'Mestrado', 'Mestrado teste', 'GDT', '2018-11-11', '2018-09-25', NULL, '../Uteis/Imagens/Docentes/Docente com mais linhas.jpg', 1);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_permissoes`
+-- Table structure for table `tb_permissoes`
 --
 
 DROP TABLE IF EXISTS `tb_permissoes`;
@@ -629,7 +629,7 @@ CREATE TABLE IF NOT EXISTS `tb_permissoes` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Extraindo dados da tabela `tb_permissoes`
+-- Dumping data for table `tb_permissoes`
 --
 
 INSERT INTO `tb_permissoes` (`id`, `cdusuarios`, `cdgrupo`, `cdlinha`, `cdtecnico`, `cddocente`, `edgrupo`, `permissoes`) VALUES
@@ -639,7 +639,7 @@ INSERT INTO `tb_permissoes` (`id`, `cdusuarios`, `cdgrupo`, `cdlinha`, `cdtecnic
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_projetospesquisa`
+-- Table structure for table `tb_projetospesquisa`
 --
 
 DROP TABLE IF EXISTS `tb_projetospesquisa`;
@@ -658,21 +658,20 @@ CREATE TABLE IF NOT EXISTS `tb_projetospesquisa` (
   KEY `linha` (`linha`),
   KEY `aluno` (`aluno`),
   KEY `grupo` (`grupo`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 --
--- Extraindo dados da tabela `tb_projetospesquisa`
+-- Dumping data for table `tb_projetospesquisa`
 --
 
 INSERT INTO `tb_projetospesquisa` (`id`, `titulo`, `docente`, `linha`, `grupo`, `tipo`, `data_inicio`, `data_fim`, `aluno`) VALUES
-(2, 'Projetos de Pesquisa', 41, 10304037, 'GDI', 'Outras Bolsa', '2018-11-23', NULL, NULL),
-(4, 'Projetos de Pesquisa', 41, 10304037, 'GDI', 'Outras Bolsa', '2018-11-23', NULL, 1),
-(5, 'novo', 41, 10304037, 'GDI', 'PIBIC', '2018-02-25', NULL, NULL);
+(6, 'Projeto de Pesquisa Teste', 44, 10303057, 'GDT', 'Voluntario', '2018-10-25', NULL, 3),
+(7, 'Segundo Projeto para Testes', 43, 10304037, 'GDT', 'Outra Bolsa', '2018-10-26', NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_publicacoes`
+-- Table structure for table `tb_publicacoes`
 --
 
 DROP TABLE IF EXISTS `tb_publicacoes`;
@@ -691,20 +690,20 @@ CREATE TABLE IF NOT EXISTS `tb_publicacoes` (
   KEY `linha` (`linha`),
   KEY `docente` (`docente`),
   KEY `grupo` (`grupo`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 --
--- Extraindo dados da tabela `tb_publicacoes`
+-- Dumping data for table `tb_publicacoes`
 --
 
 INSERT INTO `tb_publicacoes` (`id`, `grupo`, `projeto`, `titulo`, `tipo`, `data`, `linha`, `docente`, `referencia`) VALUES
-(1, 'GDI', 5, 'nova pub', 'Anais', '2018-10-15', 0, 0, 'asfdasfdasfdasfda'),
-(2, 'GDI', 5, 'nova pub', 'Anais', '2018-10-15', NULL, NULL, 'asfdasfdasfdasfda');
+(3, 'GDT', 7, 'Publicação com projeto de pesquisa', 'Livro', '2018-11-15', 10304037, 43, 'TANENBAUM, Andrew. Redes de computadores. 5. ed. São Paulo: Elsevier, 2016. 900 p.'),
+(4, 'GDT', NULL, 'Publicação sem Projeto de Pesquisa', 'Periódicos', '2018-11-25', 10304037, 44, 'BARBOSA, Kelly Santos. Revisão da literatura em técnicas de modelagem de software. Revista da Informática, Florianópolis, v. 12, n. 14, p. 11-29, nov. 2017.');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_subareas`
+-- Table structure for table `tb_subareas`
 --
 
 DROP TABLE IF EXISTS `tb_subareas`;
@@ -718,7 +717,7 @@ CREATE TABLE IF NOT EXISTS `tb_subareas` (
 ) ENGINE=MyISAM AUTO_INCREMENT=82 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 --
--- Extraindo dados da tabela `tb_subareas`
+-- Dumping data for table `tb_subareas`
 --
 
 INSERT INTO `tb_subareas` (`id`, `id_grandearea`, `codigo`, `nome`) VALUES
@@ -806,7 +805,7 @@ INSERT INTO `tb_subareas` (`id`, `id_grandearea`, `codigo`, `nome`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_subespecialidades`
+-- Table structure for table `tb_subespecialidades`
 --
 
 DROP TABLE IF EXISTS `tb_subespecialidades`;
@@ -820,7 +819,7 @@ CREATE TABLE IF NOT EXISTS `tb_subespecialidades` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 --
--- Extraindo dados da tabela `tb_subespecialidades`
+-- Dumping data for table `tb_subespecialidades`
 --
 
 INSERT INTO `tb_subespecialidades` (`id`, `id_especialidade`, `codigo`, `nome`) VALUES
@@ -1694,7 +1693,7 @@ INSERT INTO `tb_subespecialidades` (`id`, `id_especialidade`, `codigo`, `nome`) 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_tecnicos`
+-- Table structure for table `tb_tecnicos`
 --
 
 DROP TABLE IF EXISTS `tb_tecnicos`;
@@ -1707,7 +1706,7 @@ CREATE TABLE IF NOT EXISTS `tb_tecnicos` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_usuarios`
+-- Table structure for table `tb_usuarios`
 --
 
 DROP TABLE IF EXISTS `tb_usuarios`;
@@ -1722,12 +1721,12 @@ CREATE TABLE IF NOT EXISTS `tb_usuarios` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Extraindo dados da tabela `tb_usuarios`
+-- Dumping data for table `tb_usuarios`
 --
 
 INSERT INTO `tb_usuarios` (`login`, `email`, `senha`, `data`, `tipo`, `acesso`) VALUES
-('Administrador', 'Igor100013@gmail.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', '2018-11-02 20:32:33', 0, 1),
-('1690175', 'igor100013@gmail.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', '2018-11-02 20:33:46', 1, 1);
+('1690175', 'igor100013@gmail.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', '2018-11-11 23:45:04', 1, 1),
+('Administrador', 'igor100013@gmail.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', '2018-11-11 23:44:29', 0, 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
