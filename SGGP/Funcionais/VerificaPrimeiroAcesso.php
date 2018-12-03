@@ -6,17 +6,12 @@
 ?>
 
 <?php
-
     if(isset($_GET['erro'])){
-        
         $erro = $_GET['erro'];
         $erro++;
-        
     }
     else{
-        
-        $erro = 1;
-        
+        $erro = 1; 
     }
 
     include("../BancoDeDados/Conexao.php");
@@ -50,21 +45,17 @@
               $saida2 = $resultado2->fetch_assoc();
 
               $lider = new Lider();
-              $lider->CriaSessao($saida["login"], $saida2["nome"], $saida["email"], 1);
+              $lider->CriaSessao($saida["login"], $saida2["nome"], $saida["email"], 0);
 
           }
           else if($saida["tipo"] == 0){
 
               $adm = new Adm();
-              $adm->CriaSessao($saida["login"], $saida["email"], 0);
+              $adm->CriaSessao($saida["login"], $saida["email"], 1);
 
           }
 
         if($saida["acesso"] == 0) {
-
-            $atualiza = "UPDATE tb_usuarios SET acesso = 1 WHERE login = '$login'";
-
-            $conexao->query($atualiza);
 
             header('Location: ../Visuais/PainelPrimeiroAcesso.php');
 
@@ -80,7 +71,7 @@
 
     else {
 
-        header('Location: ../Visuais/Login.php?erro='.$erro);exit;
+        header('Location: ../Visuais/Login.php?erro='.$erro);
 
     }     
     

@@ -1,4 +1,4 @@
-<div class="scroll-sidebar" style="position:fixed;">
+<div class="scroll-sidebar">
    
     <nav class="sidebar-nav">
        
@@ -10,7 +10,7 @@
 
                 $conexao = conectar();        
             
-                if(isset($_SESSION['AdmTipo'])){
+                if(isset($_SESSION['AdmLogin'])){
                 ?>
                 <li class="sidebar-item">
 
@@ -126,13 +126,26 @@
             <?php
                     
                         }
+                        ?>
+            <li class="sidebar-item">
+                               
+                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Posts.php" aria-expanded="false">
+
+                    <i class="mdi mdi-plus-box"></i>
+
+                    <span class="hide-menu">Posts</span>
+
+                </a>
+
+            </li>
+            <?php
                     }
                 }
                 
             ?>
             <?php
             /*-----------------------------------------------------------------------------------------------------------------------------------*/
-                if(isset($_SESSION['LiderTipo'])){
+                if(isset($_SESSION['LiderLogin'])){
                     
                     $busca = "SELECT * FROM tb_permissoes WHERE id = 1";
                     
@@ -142,25 +155,6 @@
 
                         $saida = $resultado->fetch_assoc();
             
-                        
-                        if($saida['cdusuarios'] == 1){
-                            
-            ?>
-                           
-                            <li class="sidebar-item">
-                               
-                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="CadUsuario.php" aria-expanded="false">
-                                   
-                                    <i class="mdi mdi-face"></i>
-                                    
-                                    <span class="hide-menu">Cadastrar Usuário</span>
-                                    
-                                </a>
-                                
-                            </li>
-                            
-            <?php
-                        }
                         
                         if($saida['edgrupo'] == 1){
                             
@@ -192,6 +186,7 @@
             <?php
                         }
                         
+                        
                         if($saida['permissoes'] == 1){
                             
             ?>
@@ -209,6 +204,21 @@
             <?php
                     
                         }
+                        ?>
+                            <li class="sidebar-item">
+                               
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Relatorios.php" aria-expanded="false">
+                                   
+                                    <i class="mdi mdi-file-pdf"></i>
+                                    
+                                    <span class="hide-menu">Relatórios</span>
+                                    
+                                </a>
+                                
+                            </li>
+
+            <?php
+                        
                     }
                 }
                         

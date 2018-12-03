@@ -22,6 +22,14 @@
         include("../Uteis/HeadLogin.php");
 
     ?>
+    <?php
+        if(isset($_GET['erro'])){
+            $caminho = "../Funcionais/VerificaPrimeiroAcesso.php?erro=".$_GET['erro'];
+        }
+        else{
+            $caminho = "../Funcionais/VerificaPrimeiroAcesso.php";
+        }
+    ?>
 
     <body>
 
@@ -31,19 +39,11 @@
                 
                 <div class="wrap-login100 p-t-50 p-b-90">		
 
-                    <form name="formLogin" method="post" action="../Funcionais/VerificaPrimeiroAcesso.php" class="login100-form validate-form flex-sb flex-w">
+                    <form name="formLogin" method="post" action="<?php echo $caminho; ?>" class="login100-form validate-form flex-sb flex-w">
                         
                         <span class="login100-form-title p-b-51">
                             
                             Login SGGP
-
-                            <?php
-                            
-                               if(isset($_GET['erro'])){
-                                   echo "<script>window.alert(\"Login ou Senha Inválidos!\");</script>";
-                               } 
-                            
-                             ?>
                             
                         </span>
 
@@ -104,6 +104,27 @@
 
         include("../Uteis/ScriptsLogin.php");
 
+    ?>
+    <!-- Modal Esqueceu Senha -->
+    <?php
+        include("../Funcionais/Modais.php");
+        ModalOKCancelar("Esqueceu a senha?", "Você deseja recuperar sua senha?", "senhaModal", "../Visual/RecuperarSenha.php","");
+    ?> 
+      
+    <!-- JavaScript -->
+    <?php
+        include("../Uteis/Script.php");
+      
+        if(isset($_GET['erro'])){
+            if($_GET['erro'] == 5){
+                print("
+                <script>
+                    $(document).ready(function(){
+                        $('#senhaModal').modal('show');
+                    });
+                </script>");
+            }
+        }
     ?>
 
     </body>

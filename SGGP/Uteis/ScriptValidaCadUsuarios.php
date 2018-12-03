@@ -4,8 +4,8 @@ function validar() {
     var email = formCadUsuarios.email_lider.value;
     var prontuario = formCadUsuarios.prontuario_lider.value;
 
-    if (nome == "") {
-        alert('Preencha o campo com seu nome');
+    if (nome == "" && nome.length >50) {
+        alert('Preencha o campo NOME corretamente.\nLimite: 50 caracteres');
         formCadUsuarios.nome_lider.focus();
         return false;
     }

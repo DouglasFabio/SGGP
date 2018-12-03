@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: 21-Out-2018 às 20:57
--- Versão do servidor: 5.7.21
--- PHP Version: 5.6.35
+-- Generation Time: Dec 02, 2018 at 10:15 PM
+-- Server version: 5.7.19
+-- PHP Version: 7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -27,7 +27,42 @@ USE `bd_sggp`;
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_especialidades`
+-- Table structure for table `tb_alunos`
+--
+
+DROP TABLE IF EXISTS `tb_alunos`;
+CREATE TABLE IF NOT EXISTS `tb_alunos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `curso` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `link` text COLLATE utf8_swedish_ci NOT NULL,
+  `data_inicio` date NOT NULL,
+  `data_fim` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_equipamentos`
+--
+
+DROP TABLE IF EXISTS `tb_equipamentos`;
+CREATE TABLE IF NOT EXISTS `tb_equipamentos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `grupo` varchar(10) COLLATE utf8_swedish_ci NOT NULL,
+  `nome` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `descricao` text COLLATE utf8_swedish_ci NOT NULL,
+  `data_inicio` date NOT NULL,
+  `data_fim` date DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `grupo` (`grupo`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_especialidades`
 --
 
 DROP TABLE IF EXISTS `tb_especialidades`;
@@ -41,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `tb_especialidades` (
 ) ENGINE=MyISAM AUTO_INCREMENT=764 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 --
--- Extraindo dados da tabela `tb_especialidades`
+-- Dumping data for table `tb_especialidades`
 --
 
 INSERT INTO `tb_especialidades` (`id`, `id_subarea`, `codigo`, `nome`) VALUES
@@ -382,7 +417,7 @@ INSERT INTO `tb_especialidades` (`id`, `id_subarea`, `codigo`, `nome`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_grandesareas`
+-- Table structure for table `tb_grandesareas`
 --
 
 DROP TABLE IF EXISTS `tb_grandesareas`;
@@ -394,7 +429,7 @@ CREATE TABLE IF NOT EXISTS `tb_grandesareas` (
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 --
--- Extraindo dados da tabela `tb_grandesareas`
+-- Dumping data for table `tb_grandesareas`
 --
 
 INSERT INTO `tb_grandesareas` (`id`, `codigo`, `nome`) VALUES
@@ -411,13 +446,12 @@ INSERT INTO `tb_grandesareas` (`id`, `codigo`, `nome`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_grupospesquisa`
+-- Table structure for table `tb_grupospesquisa`
 --
 
 DROP TABLE IF EXISTS `tb_grupospesquisa`;
 CREATE TABLE IF NOT EXISTS `tb_grupospesquisa` (
   `nome` varchar(50) CHARACTER SET utf8 COLLATE utf8_swedish_ci NOT NULL,
-  `sigla` varchar(10) CHARACTER SET utf8 COLLATE utf8_swedish_ci NOT NULL,
   `lider` varchar(20) CHARACTER SET utf8 COLLATE utf8_swedish_ci NOT NULL,
   `situacao` int(1) NOT NULL,
   `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_swedish_ci DEFAULT NULL,
@@ -425,26 +459,24 @@ CREATE TABLE IF NOT EXISTS `tb_grupospesquisa` (
   `descricao` text CHARACTER SET utf8 COLLATE utf8_swedish_ci,
   `logotipo` text CHARACTER SET utf8 COLLATE utf8_swedish_ci,
   `data_inicio` text,
-  PRIMARY KEY (`sigla`),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sigla` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `sigla` (`sigla`),
   KEY `lider` (`lider`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `tb_grupospesquisa`
---
-
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_liderancas`
+-- Table structure for table `tb_liderancas`
 --
 
 DROP TABLE IF EXISTS `tb_liderancas`;
 CREATE TABLE IF NOT EXISTS `tb_liderancas` (
   `lider_antigo` varchar(20) CHARACTER SET utf8 COLLATE utf8_swedish_ci NOT NULL,
   `lider_novo` varchar(20) CHARACTER SET utf8 COLLATE utf8_swedish_ci NOT NULL,
-  `data_inicio` timestamp NOT NULL,
+  `data_inicio` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `grupo` varchar(10) CHARACTER SET utf8 COLLATE utf8_swedish_ci NOT NULL,
   KEY `grupo` (`grupo`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -452,7 +484,7 @@ CREATE TABLE IF NOT EXISTS `tb_liderancas` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_lideres`
+-- Table structure for table `tb_lideres`
 --
 
 DROP TABLE IF EXISTS `tb_lideres`;
@@ -464,16 +496,10 @@ CREATE TABLE IF NOT EXISTS `tb_lideres` (
   KEY `lider` (`lider`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
---
--- Extraindo dados da tabela `tb_lideres`
---
-
-
-
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_linhasdocentes`
+-- Table structure for table `tb_linhasdocentes`
 --
 
 DROP TABLE IF EXISTS `tb_linhasdocentes`;
@@ -486,18 +512,12 @@ CREATE TABLE IF NOT EXISTS `tb_linhasdocentes` (
   PRIMARY KEY (`id`),
   KEY `docente` (`docente`),
   KEY `linha_pesquisa` (`linha_pesquisa`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
-
---
--- Extraindo dados da tabela `tb_linhasdocentes`
---
-
-
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_linhasgrupos`
+-- Table structure for table `tb_linhasgrupos`
 --
 
 DROP TABLE IF EXISTS `tb_linhasgrupos`;
@@ -512,18 +532,12 @@ CREATE TABLE IF NOT EXISTS `tb_linhasgrupos` (
   PRIMARY KEY (`id`),
   KEY `grupo` (`grupo`) USING BTREE,
   KEY `codigo_capes` (`codigo_capes`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
-
---
--- Extraindo dados da tabela `tb_linhasgrupos`
---
-
-
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_participantes`
+-- Table structure for table `tb_participantes`
 --
 
 DROP TABLE IF EXISTS `tb_participantes`;
@@ -541,12 +555,26 @@ CREATE TABLE IF NOT EXISTS `tb_participantes` (
   `tipo` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `grupo` (`grupo`)
-) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_permissoes`
+-- Table structure for table `tb_partreunioes`
+--
+
+DROP TABLE IF EXISTS `tb_partreunioes`;
+CREATE TABLE IF NOT EXISTS `tb_partreunioes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `reuniao` int(11) NOT NULL,
+  `docente` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_permissoes`
 --
 
 DROP TABLE IF EXISTS `tb_permissoes`;
@@ -557,23 +585,106 @@ CREATE TABLE IF NOT EXISTS `tb_permissoes` (
   `cdlinha` tinyint(1) NOT NULL,
   `cdtecnico` tinyint(1) NOT NULL,
   `cddocente` tinyint(1) NOT NULL,
+  `cdreunioes` tinyint(1) NOT NULL,
   `edgrupo` tinyint(1) NOT NULL,
   `permissoes` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Extraindo dados da tabela `tb_permissoes`
+-- Dumping data for table `tb_permissoes`
 --
 
-INSERT INTO `tb_permissoes` (`id`, `cdusuarios`, `cdgrupo`, `cdlinha`, `cdtecnico`, `cddocente`, `edgrupo`, `permissoes`) VALUES
-(0, 1, 1, 1, 0, 0, 1, 1),
-(1, 0, 0, 0, 1, 1, 1, 0);
+INSERT INTO `tb_permissoes` (`id`, `cdusuarios`, `cdgrupo`, `cdlinha`, `cdtecnico`, `cddocente`, `cdreunioes`, `edgrupo`, `permissoes`) VALUES
+(0, 1, 1, 1, 0, 0, 0, 1, 1),
+(1, 0, 0, 0, 1, 1, 1, 1, 0);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_subareas`
+-- Table structure for table `tb_posts`
+--
+
+DROP TABLE IF EXISTS `tb_posts`;
+CREATE TABLE IF NOT EXISTS `tb_posts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `postagem` text COLLATE utf8_swedish_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_projetospesquisa`
+--
+
+DROP TABLE IF EXISTS `tb_projetospesquisa`;
+CREATE TABLE IF NOT EXISTS `tb_projetospesquisa` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `docente` int(11) NOT NULL,
+  `linha` int(11) NOT NULL,
+  `grupo` varchar(20) COLLATE utf8_swedish_ci NOT NULL,
+  `tipo` varchar(25) COLLATE utf8_swedish_ci NOT NULL,
+  `data_inicio` date NOT NULL,
+  `data_fim` date DEFAULT NULL,
+  `aluno` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `docente` (`docente`),
+  KEY `linha` (`linha`),
+  KEY `aluno` (`aluno`),
+  KEY `grupo` (`grupo`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_publicacoes`
+--
+
+DROP TABLE IF EXISTS `tb_publicacoes`;
+CREATE TABLE IF NOT EXISTS `tb_publicacoes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `grupo` varchar(10) COLLATE utf8_swedish_ci NOT NULL,
+  `projeto` int(11) DEFAULT NULL,
+  `titulo` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+  `tipo` varchar(50) COLLATE utf8_swedish_ci NOT NULL,
+  `data` date NOT NULL,
+  `linha` int(11) DEFAULT NULL,
+  `docente` int(11) DEFAULT NULL,
+  `referencia` text COLLATE utf8_swedish_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `projeto` (`projeto`),
+  KEY `linha` (`linha`),
+  KEY `docente` (`docente`),
+  KEY `grupo` (`grupo`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_reunioes`
+--
+
+DROP TABLE IF EXISTS `tb_reunioes`;
+CREATE TABLE IF NOT EXISTS `tb_reunioes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `grupo` varchar(10) COLLATE utf8_swedish_ci NOT NULL,
+  `data` date NOT NULL,
+  `inicio_previsao` time NOT NULL,
+  `pauta` text COLLATE utf8_swedish_ci NOT NULL,
+  `situacao` int(11) DEFAULT NULL,
+  `inicio_real` time DEFAULT NULL,
+  `ATA` text COLLATE utf8_swedish_ci,
+  `fim_reuniao` time DEFAULT NULL,
+  `convidados` text COLLATE utf8_swedish_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_subareas`
 --
 
 DROP TABLE IF EXISTS `tb_subareas`;
@@ -587,7 +698,7 @@ CREATE TABLE IF NOT EXISTS `tb_subareas` (
 ) ENGINE=MyISAM AUTO_INCREMENT=82 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 --
--- Extraindo dados da tabela `tb_subareas`
+-- Dumping data for table `tb_subareas`
 --
 
 INSERT INTO `tb_subareas` (`id`, `id_grandearea`, `codigo`, `nome`) VALUES
@@ -675,7 +786,7 @@ INSERT INTO `tb_subareas` (`id`, `id_grandearea`, `codigo`, `nome`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_subespecialidades`
+-- Table structure for table `tb_subespecialidades`
 --
 
 DROP TABLE IF EXISTS `tb_subespecialidades`;
@@ -689,7 +800,7 @@ CREATE TABLE IF NOT EXISTS `tb_subespecialidades` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 --
--- Extraindo dados da tabela `tb_subespecialidades`
+-- Dumping data for table `tb_subespecialidades`
 --
 
 INSERT INTO `tb_subespecialidades` (`id`, `id_especialidade`, `codigo`, `nome`) VALUES
@@ -1563,7 +1674,7 @@ INSERT INTO `tb_subespecialidades` (`id`, `id_especialidade`, `codigo`, `nome`) 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_tecnicos`
+-- Table structure for table `tb_tecnicos`
 --
 
 DROP TABLE IF EXISTS `tb_tecnicos`;
@@ -1573,16 +1684,10 @@ CREATE TABLE IF NOT EXISTS `tb_tecnicos` (
   `participante` int(11) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
---
--- Extraindo dados da tabela `tb_tecnicos`
---
-
-
-
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_usuarios`
+-- Table structure for table `tb_usuarios`
 --
 
 DROP TABLE IF EXISTS `tb_usuarios`;
@@ -1590,17 +1695,11 @@ CREATE TABLE IF NOT EXISTS `tb_usuarios` (
   `login` varchar(20) CHARACTER SET utf8 COLLATE utf8_swedish_ci NOT NULL,
   `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_swedish_ci NOT NULL,
   `senha` char(64) CHARACTER SET utf8 COLLATE utf8_swedish_ci NOT NULL,
-  `data` timestamp NOT NULL,
+  `data` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `tipo` tinyint(1) NOT NULL,
   `acesso` tinyint(1) NOT NULL,
   PRIMARY KEY (`login`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `tb_usuarios`
---
-
-
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -5,15 +5,15 @@
         private $login;
         private $nome;
         private $email;
-        private $tipo;
+        private $acesso;
         
-        public function CriaSessao($login, $nome, $email, $tipo){
+        public function CriaSessao($login, $nome, $email, $acesso){
             
           if (!isset($_SESSION)) session_start();
             $_SESSION['LiderLogin'] = $login;
             $_SESSION['LiderNome'] = $nome;
             $_SESSION['LiderEmail'] = $email;
-            $_SESSION['LiderTipo'] = $tipo;
+            $_SESSION['LiderAcesso'] = $tipo;
         }   
         
     }  
@@ -22,14 +22,14 @@
 
         private $login;
         private $email;
-        private $tipo;
+        private $acesso;
         
-        public function CriaSessao($login, $email, $tipo){
+        public function CriaSessao($login, $email, $acesso){
             
           if (!isset($_SESSION)) session_start();
             $_SESSION['AdmLogin'] = $login;
             $_SESSION['AdmEmail'] = $email;
-            $_SESSION['AdmTipo'] = $tipo;
+            $_SESSION['AdmAcesso'] = $tipo;
         }   
         
     }  

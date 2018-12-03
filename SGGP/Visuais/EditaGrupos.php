@@ -123,16 +123,12 @@ function clicalinha(linha){
                                         <label >Nome:</label>                                  
                                         <?php
                                         $sigla = $_POST['sigla'];     
-                                        $busca = "SELECT nome, sigla, email, link, descricao, logotipo, data_inicio, situacao  FROM tb_grupospesquisa WHERE sigla='".$sigla."'";
+                                        $busca = "SELECT id, nome, sigla, email, link, descricao, logotipo, data_inicio, situacao  FROM tb_grupospesquisa WHERE sigla='".$sigla."'";
 
                                         if ($resultado = $conexao->prepare($busca)) {
                                             $resultado->execute();
-                                            $resultado->bind_result($nome, $sigla, $email, $link, $descricao, $logo, $data_inicio, $situacao);
+                                            $resultado->bind_result($id, $nome, $sigla, $email, $link, $descricao, $logo, $data_inicio, $situacao);
                                             
-                                            
-                                                
-                                            
-                                                
                                             if($resultado->fetch()) {
                                                 printf('<input type="text" class="form-control" id="nome_grupo" name="nome_grupo" maxlength="50" value="'.$nome.'">');
                                                 ?>  
@@ -146,7 +142,7 @@ function clicalinha(linha){
                                                 <div class="form-group" hidden>
                                                     <label >Sigla Antiga:</label>                                  
                                                     <?php
-                                                        printf('<input type="text" class="form-control" id="sigla_antiga" name="sigla_antiga" value="'.$sigla.'">');
+                                                        printf('<input type="text" class="form-control" id="id" name="id" value="'.$id.'">');
                                                     ?>  
                                                 </div>
                                                 <div class="form-group"> 

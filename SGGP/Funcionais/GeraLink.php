@@ -36,7 +36,7 @@
 
     else{
 
-        header('Location: ../Visuais/EsqueceuSenha.php');
+        header('Location: ../Visuais/EsqueceuSenha.php?erro=1');
 
     }
 

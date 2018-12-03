@@ -17,7 +17,7 @@
     $data = $_GET["d"];
     $prontuario = base64_decode($_GET["b"]);
 
-    $busca = "SELECT u.login ,l.nome , u.email FROM tb_usuarios as u, tb_lideres as l WHERE u.login = '".$prontuario."' and u.login = l.lider";
+    $busca = "SELECT login ,email, acesso FROM tb_usuarios WHERE login = '".$prontuario."'";
 
     $resultado = $conexao->query($busca);
 
@@ -29,8 +29,34 @@
         
           include("ClassUsuario.php");
         
-          $lider = new Lider();
-          $lider->CriaSessao($saida["login"], $saida["nome"], $saida["email"], 1);
+          if($saida["acesso"] == 1){
+        
+            $busca = "SELECT nome FROM tb_lideres WHERE tipo = 0";
+        
+            if ($resultado = $conexao->prepare($busca)) {
+
+                $resultado->execute();
+
+                $resultado->bind_result($nome);
+
+                while ($resultado->fetch()) {
+
+                    $lider = new Lider();
+                    $lider->CriaSessao($saida["login"], $nome, $saida["email"], 1);
+
+                }
+
+            }
+            else {
+
+                printf( "Erro no SQL!");
+
+            }
+          }
+          else{
+              $lider = new Lider();
+              $lider->CriaSessao($saida["login"], "Primeiro Acesso", $saida["email"], 0);
+          }
 
     } 
     else {

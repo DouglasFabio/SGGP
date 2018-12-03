@@ -134,7 +134,7 @@ function clicalinha(linha){
                                                     $sigla = $_POST['sigla'];
                                                     date_default_timezone_set('America/Sao_Paulo');
                                                     $hoje = date('Y-m-d');
-                                                    $busca = "SELECT lg.id, lg.codigo_capes, lg.data_cad, lg.fim_vinculo , s.nome FROM tb_linhasgrupos as lg, tb_subespecialidades as s WHERE lg.grupo = '".$sigla."' AND s.codigo = lg.codigo_capes";
+                                                    $busca = "SELECT lg.id, lg.codigo_capes, lg.data_cad, lg.fim_vinculo ,lg.inicio_vinculo , s.nome FROM tb_linhasgrupos as lg, tb_subespecialidades as s WHERE lg.grupo = '".$sigla."' AND s.codigo = lg.codigo_capes";
                                                     
                                             
                                                          
@@ -143,7 +143,7 @@ function clicalinha(linha){
                                                         $result = $conexao->query($busca);
                                                         $resultado->execute();
 
-                                                        $resultado->bind_result($id, $codigo, $data, $fim, $nome);
+                                                        $resultado->bind_result($id, $codigo, $data, $fim, $inicio, $nome);
                                                         echo $sigla;
                                                         while ($resultado->fetch()) {
                                                             if($result->num_rows == 1){
@@ -202,6 +202,7 @@ function clicalinha(linha){
                                                                                 </button>
                                                                               </div>
                                                                               <input name="id" value="'.$id.'" hidden>
+                                                                              <input type="date" name="inicio" value="'.$inicio.'" hidden>
                                                                               <input type="date" class="form-control" id="datadesvinculo_grupo" name="datadesvinculo_grupo">
                                                                               <div class="modal-footer">
                                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -239,7 +240,7 @@ function clicalinha(linha){
                                                        
                                                         <input name="sigla" value="<?php echo $sigla; ?>" hidden>
                                                         
-                                                        <input type="text" class="form-control" style="height: 47px;" id="linha_mostra" name="linha_mostra">
+                                                        <input type="text" class="form-control" style="height: 47px;" id="linha_mostra" name="linha_mostra" required>
                                                         
                                                         <?php
                                                             include("../Uteis/ScriptAutoComplete.php");
@@ -311,11 +312,11 @@ function clicalinha(linha){
                                             </div>
                                             <div class="form-group"> 
                                                 <label>Data de Vínculo da Linha de Pesquisa:</label>
-                                                    <input type="date" class="form-control" id="datavinculo_grupo" name="datavinculo_grupo">
+                                                    <input type="date" class="form-control" id="datavinculo_grupo" name="datavinculo_grupo" required>
                                             </div>
                                             <div class="form-group"> 
                                                 <label>Descrição da Linha de Pesquisa:</label>
-                                                <textarea style="resize: none;" class="form-control" rows="3" id="desclinha_grupo" name="desclinha_grupo"></textarea>
+                                                <textarea style="resize: none;" class="form-control" rows="3" id="desclinha_grupo" name="desclinha_grupo" required></textarea>
                                             </div>
 
                                                 <br/>

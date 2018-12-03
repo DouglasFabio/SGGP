@@ -99,7 +99,7 @@
                         $sigla = $_POST['sigla_grupo'];
                         $link = $_POST['link_grupo'];
                         $descricao = $_POST['desc_grupo']; 
-                        $sigla_antiga = $_POST['sigla_antiga'];
+                        $id = $_POST['id'];
                         $linha = $_POST['linha_mostra'];
                         $data_vinculo = $_POST['datavinculo_grupo'];
                         $descricao_linha = $_POST['desclinha_grupo'];
@@ -121,7 +121,7 @@
                             // Isso serve apenas para eu poder pesquisar dentro desta String
                             if ( strstr ( '.jpg;.jpeg;.gif;.png', $extensao ) ) {
 
-                                $novoNome =  $sigla . '.' . $extensao;
+                                $novoNome =  $id . '.' . $extensao;
 
                                 // Concatena a pasta com o nome
                                 $destino = '../Uteis/Imagens/GruposPesquisa/' . $novoNome;
@@ -149,9 +149,9 @@
                                                              `email` = '".$email."', 
                                                              `link` = '".$link."', 
                                                              `descricao` = \"".$descricao."\", 
-                                                             `data_inicio` = '".$data."', 
+                                                             `data_inicio` = '".$data."-01', 
                                                              `logotipo` = '".$destino."' 
-                                                         WHERE `sigla` = '".$sigla_antiga."'";
+                                                         WHERE `id` = '".$id."'";
 
                                             $resultado = mysqli_query($conexao, $atualiza);
 
@@ -181,7 +181,7 @@
                                                                 <frame src="PaginaGrupos.php"> 
                                                                 </frameset>
                                                                 </html>';
-                                                $local = "../Grupos/".$sigla.".php";
+                                                $local = "../Grupos/".$id.".php";
                                                 file_put_contents($local, $conteudo);
                                     }
                                 }

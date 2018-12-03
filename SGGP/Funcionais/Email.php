@@ -27,6 +27,7 @@
         } else {
             $error = 'Um e-mail foi enviado para: '.$para;
             return true;
+            
         }
     }
 

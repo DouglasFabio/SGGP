@@ -141,15 +141,15 @@
                                    
                                     <div class="form-group">
                                         <label>Nome:</label>
-                                        <input type="text" class="form-control" name="nome_docente">
+                                        <input type="text" class="form-control" name="nome_docente" required>
                                     </div>
                                     <div class="form-group">
                                         <label>Link Lattes:</label>
-                                        <input type="text" class="form-control" name="link_docente" >
+                                        <input type="text" class="form-control" name="link_docente" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="formacaoAcademica">Formação Acadêmica:</label>
-                                        <select class="form-control" id="formacaoAcademica" name="formacao_academica">
+                                        <select class="form-control" id="formacaoAcademica" name="formacao_academica" required>
                                           <option value="" selected>Selecione</option>
                 
                                           <option value="1">Ensino Fundamental</option>
@@ -179,13 +179,13 @@
                                             <input type="text" class="form-control" name="nome_curso" >
                                             <input type="text" class="form-control" name="sigla" value="<?php echo $sigla; ?>" hidden>
                                     </div>  
-                                    <div class="form-group">
+                                    <div class="form-group" >
                                         <label >Foto:</label>
-                                        <input type="file" class="form-control" id="arquivo" name="arquivo">  
+                                        <input type="file" class="form-control" id="arquivo" name="arquivo" required>  
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" >
                                         <label >Data de inclusão:</label>
-                                        <input type="date" class="form-control" id="data" name="datainc_docente"> 
+                                        <input type="date" class="form-control" id="data" name="datainc_docente"required> 
                                     </div>
                                     
                                     <div class="form-group">

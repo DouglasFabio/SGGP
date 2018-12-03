@@ -15,3 +15,6 @@
     <script src="../Uteis/Botsp_Paineis/assets/libs/chartist/dist/chartist.min.js"></script>
     <script src="../Uteis/Botsp_Paineis/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
     <script src="../Uteis/Botsp_Paineis/dist/js/pages/dashboards/dashboard1.js"></script>
+
+
+    

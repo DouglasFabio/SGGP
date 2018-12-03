@@ -22,14 +22,6 @@
                             
                             Digite seu Prontuario!
                             
-                            <?php
-                            
-                               if(isset($_GET['erro'])){
-                                   echo "<script>window.alert(\"Prontuário Inválido!\");</script>";
-                               } 
-                            
-                            ?>
-                            
                         </span>
 
                         <div class="wrap-input100 validate-input m-b-16" data-validate = "Verifique seu prontuário">
@@ -63,7 +55,25 @@
         include("../Uteis/ScriptsLogin.php");
 
     ?>
-
+    <!-- Modal Dados Invalido -->
+    <?php
+          include("../Funcionais/Modais.php");
+          if(isset($_GET['erro'])){
+              if($_GET['erro'] == 1){
+                 ModalOKCancelar("Usuário", "O usuário não foi encontrado.", "erroModal", "#", 'data-dismiss="modal"');
+              }
+            }
+          
+      
+          if(isset($_GET['erro'])){
+                print("
+                <script>
+                    $(document).ready(function(){
+                        $('#erroModal').modal('show');
+                    });
+                </script>");
+            }
+    ?>
     </body>
     
 </html>

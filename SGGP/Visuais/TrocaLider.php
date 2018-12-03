@@ -14,10 +14,6 @@
         }
 
         include("../Uteis/HeadLogin.php");
-    
-        if(isset($_GET['erro'])){
-            echo "<script>window.alert(\"Por favor, selecione um líder!!\");</script>";
-        } 
 
     ?>
     <body>
@@ -48,8 +44,8 @@
                         </span>
                         
                         <div class="wrap-input100 validate-input m-b-16" data-validate = "Escolha o líder!">
-                            
-                            <select class="form-control" name="lider_grupo">
+                            <label>Novo Lider:</label>
+                            <select class="form-control" name="lider_grupo" required>
                                         <option selected>Escolha</option>
                                         <?php
                                 
@@ -76,6 +72,10 @@
 
                                         ?>  
                                         </select>
+                                         
+                                        <label>Data de Troca:</label>
+                                        <input type="date" class="form-control" id="datatroca" name="datatroca" required>
+                                        
                                         <input type="text" name="sigla" value="<?php echo $sigla; ?>" hidden/>
                             
                             <span class="focus-input100"></span>

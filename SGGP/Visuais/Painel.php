@@ -14,10 +14,19 @@
           header("Location: PaginaInicial.php"); exit;
 
         }
+    
+        //Verifica primeiro acesso
+        if (isset($_SESSION['LiderAcesso'])) {
+
+           if ($_SESSION['LiderAcesso'] == 0) {
+                header("Location: PrimeiroAcesso.php"); exit;
+
+            }
+
+        }
 
 
         include("../Uteis/HeadPainel.php");
-    
     ?>
     
     <body>
@@ -122,7 +131,8 @@
                                        
                                         <tr>
                                             <th scope="col">Nome</th>
-                                            <th scope="col">Tipo</th>  
+                                            <th scope="col">Tipo</th>
+                                            <th scope="col"></th> 
                                         </tr>
                                         
                                     </thead>
@@ -142,6 +152,7 @@
 
                                                             printf('<tr><td>'.$login.'</td>
                                                                         <td><span class="label label-rounded label-primary">ADMIN</span></td>
+                                                                        <td></td>
                                                                     </tr>');
 
                                                         }
@@ -161,17 +172,19 @@
                                         <tbody>
                                                <?php
                                                     
-                                                    $busca2 = "SELECT nome FROM tb_lideres";
+                                                    $busca2 = "SELECT nome, lider FROM tb_lideres";
 
                                                     if ($resultado = $conexao->prepare($busca2)) {
 
                                                         $resultado->execute();
 
-                                                        $resultado->bind_result($nome);
+                                                        $resultado->bind_result($nome, $user);
 
                                                         while ($resultado->fetch()) {
                                                             printf('<tr><td>'.$nome.'</td>
                                                                         <td><span class="label label-success label-rounded">LÍDER</span></td>
+                                                                        <td><form action="../Funcionais/GeraLink.php" method="post">
+                                                                        <button class="btn btn-outline-primary" style="padding:1px;" name="prontuario" value="'.$user.'">RECUPERAR SENHA</button></td>
                                                                     </tr>');
                                                         }
 
@@ -277,13 +290,13 @@
                                         <tbody>
                                                <?php
                                             
-                                                    $busca = "SELECT nome, sigla, situacao FROM tb_grupospesquisa WHERE lider                                                                                                       ='".$_SESSION['LiderLogin']."' ORDER BY situacao desc";
+                                                    $busca = "SELECT id, nome, sigla, situacao FROM tb_grupospesquisa WHERE lider                                                                                                       ='".$_SESSION['LiderLogin']."' ORDER BY situacao desc";
 
                                                     if ($resultado = $conexao->prepare($busca)) {
 
                                                         $resultado->execute();
 
-                                                        $resultado->bind_result($nome, $sigla, $situacao);
+                                                        $resultado->bind_result($id, $nome, $sigla, $situacao);
                                                         
                                                         while ($resultado->fetch()) {
                                                             if($situacao === 2){
@@ -296,10 +309,10 @@
                                                                     </form></tr>');
                                                             }else if($situacao === 1){
                                                                 printf('<tr><td>'.$sigla.'</td>
-                                                                        <td><a href="MembrosGrupo.php?sigla='.$sigla.'" name="'.$sigla.' value="'.$sigla.'">'.$nome.'</a></td>
+                                                                        <td><a href="MembrosGrupo.php?sigla='.$sigla.'" name="'.$id.' value="'.$sigla.'">'.$nome.'</a></td>
                                                                         <td><span class="label label-rounded label-success">ATIVO</span></td>
                                                                         
-                                                                        <td><button class="btn btn-outline-primary" data-toggle="modal" data-target="#'.$sigla.'_edita" style="padding:1px;" name="sigla" value="'.$sigla.'">EDITAR</button></td>
+                                                                        <td><button class="btn btn-outline-primary" data-toggle="modal" data-target="#'.$id.'_edita" style="padding:1px;" name="sigla" value="'.$sigla.'">EDITAR</button></td>
                                                                     <form action="EditaGrupos.php" method="post">
                                                                     <div class="modal fade" id="'.$sigla.'_edita" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                           <div class="modal-dialog" role="document">
@@ -318,9 +331,9 @@
                                                                           </div>
                                                                         </div></form>
                                                                         
-                                                                        <td><button class="btn btn-outline-primary" data-toggle="modal" data-target="#'.$sigla.'_troca" style="padding:1px;" name="sigla" value="'.$sigla.'">TROCAR LÍDER</button></td>
+                                                                        <td><button class="btn btn-outline-primary" data-toggle="modal" data-target="#'.$id.'_troca" style="padding:1px;" name="sigla" value="'.$sigla.'">TROCAR LÍDER</button></td>
                                                                     <form action="TrocaLider.php" method="post">
-                                                                    <div class="modal fade" id="'.$sigla.'_troca" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                                                                    <div class="modal fade" id="'.$id.'_troca" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
                                                                           <div class="modal-dialog" role="document">
                                                                             <div class="modal-content">
                                                                               <div class="modal-header">
@@ -337,12 +350,12 @@
                                                                           </div>
                                                                         </div></form>
                                                                         
-                                                                        <td><button class="btn btn-outline-info" data-toggle="modal" data-target="#'.$sigla.'_tecnico" style="padding:1px;" name="sigla" value="'.$sigla.'">TÉCNICOS</button><br><br/>
-                                                                        <button class="btn btn-outline-info" data-toggle="modal" data-target="#'.$sigla.'_docente" style="padding:1px;" name="sigla" value="'.$sigla.'">DOCENTES</button><br><br/>
-                                                                        <button class="btn btn-outline-info" data-toggle="modal" data-target="#'.$sigla.'_linha" style="padding:1px;" name="sigla" value="'.$sigla.'">LINHAS PESQUISA</button>
+                                                                        <td><button class="btn btn-outline-info" data-toggle="modal" data-target="#'.$id.'_tecnico" style="padding:1px;" name="sigla" value="'.$sigla.'">TÉCNICOS</button><br><br/>
+                                                                        <button class="btn btn-outline-info" data-toggle="modal" data-target="#'.$id.'_docente" style="padding:1px;" name="sigla" value="'.$sigla.'">DOCENTES</button><br><br/>
+                                                                        <button class="btn btn-outline-info" data-toggle="modal" data-target="#'.$id.'_linha" style="padding:1px;" name="sigla" value="'.$sigla.'">LINHAS PESQUISA</button>
                                                                         </td>
                                                                     <form action="CadTecnico.php" method="post">
-                                                                    <div class="modal fade" id="'.$sigla.'_tecnico" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                                                                    <div class="modal fade" id="'.$id.'_tecnico" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
                                                                           <div class="modal-dialog" role="document">
                                                                             <div class="modal-content">
                                                                               <div class="modal-header">
@@ -360,7 +373,7 @@
                                                                         </div></form>
                                                                     
                                                                     <form action="CadDocente.php" method="post">
-                                                                    <div class="modal fade" id="'.$sigla.'_docente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                                                                    <div class="modal fade" id="'.$id.'_docente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
                                                                           <div class="modal-dialog" role="document">
                                                                             <div class="modal-content">
                                                                               <div class="modal-header">
@@ -378,7 +391,7 @@
                                                                         </div></form>
                                                                         
                                                                     <form action="VincularLinhaPesquisa.php" method="post">
-                                                                    <div class="modal fade" id="'.$sigla.'_linha" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                                                                    <div class="modal fade" id="'.$id.'_linha" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
                                                                           <div class="modal-dialog" role="document">
                                                                             <div class="modal-content">
                                                                               <div class="modal-header">
@@ -393,7 +406,17 @@
                                                                               </div>
                                                                             </div>
                                                                           </div>
-                                                                        </div></form></tr>');
+                                                                        </div></form>
+                                                                        <td>
+                                                                        <form action="Equipamentos.php" method="post"><button class="btn btn-outline-info" style="padding:1px;" name="sigla" value="'.$sigla.'">EQUIPAMENTOS</button><br><br/></form>
+                                                                       
+                                                                       <form action="ProjetosPesquisa.php" method="post"><button class="btn btn-outline-info" style="padding:1px;" name="sigla" value="'.$sigla.'">PROJETOS DE PESQUISA</button><br><br></form>
+                                                                       
+                                                                       <form action="Publicacoes.php" method="post"><button class="btn btn-outline-info" style="padding:1px;" name="sigla" value="'.$sigla.'">PUBLICAÇÕES</button><br><br></form>
+                                                                       
+                                                                        <form action="Reunioes.php" method="post"><button class="btn btn-outline-info" style="padding:1px;" name="sigla" value="'.$sigla.'">REUNIÕES</button><br><br></form>
+                                                                        </td>
+                                                                        </tr>');
                                                             }else{
                                                                 printf('<tr><td>'.$sigla.'</td>
                                                                         <td>'.$nome.'</td>

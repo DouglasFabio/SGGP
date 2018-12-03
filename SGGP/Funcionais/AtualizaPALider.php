@@ -1,22 +1,13 @@
 <?php
-
     error_reporting(0);
     ini_set(“display_errors”, 0 );
-
     if (!isset($_SESSION)) session_start();
-
-    if (!isset($_SESSION['AdmLogin']) && !isset($_SESSION['LiderLogin'])) {
-
-      session_destroy();
-            
-      header("Location: PaginaInicial.php"); exit;
-
+    if (!isset($_SESSION['LiderLogin'])) {
+        session_destroy();
+        header("Location: PaginaInicial.php"); exit;
     }
-
 ?>
-
 <?php
-
     $senha1 = $_POST['senha'];
     $senhaHash = hash("sha256", $senha1);
     $senha2 = $_POST['confsenha'];
@@ -26,9 +17,15 @@
 
     $conexao = conectar();
 
-    if($senha1 == $senha2){
-        
-        if ( isset( $_FILES[ 'arquivo' ][ 'name' ] ) && $_FILES[ 'arquivo' ][ 'error' ] == 0 ) {
+    include("ValidaSenhas.php");
+    $forcaSenha = vSenha($senha1);
+
+    if($forcaSenha == 0){
+        header('Location: ../Visuais/PainelPrimeiroAcesso.php?erro=7');
+    }
+    else if($senha1 == $senha2){
+
+        if ( isset( $_FILES[ 'arquivo' ][ 'name' ] ) && $_FILES[ 'arquivo' ][ 'error' ] == 0 && $_FILES['arquivo']['size'] < 1000000 ) {
 
             $arquivo_tmp = $_FILES[ 'arquivo' ][ 'tmp_name' ];
             $nome = $_FILES[ 'arquivo' ][ 'name' ];
@@ -52,57 +49,42 @@
                 if ( move_uploaded_file ( $arquivo_tmp, $destino ) ) {
 
                     $atualiza = "UPDATE `tb_lideres` SET `link` = '".$link."', `foto` = '".$destino."' WHERE `lider` = '".$_SESSION['LiderLogin']."'";
-
                     $resultado = mysqli_query($conexao, $atualiza);
 
                     if($resultado){
 
                         $atualiza2 = "UPDATE `tb_usuarios` SET `senha` = '".$senhaHash."' WHERE `login` = '".$_SESSION['LiderLogin']."'";
-
                         $resultado2 = mysqli_query($conexao, $atualiza2);
 
                         if($resultado2){
 
+                            $atualiza3 = "UPDATE tb_usuarios SET acesso = 1 WHERE login = '".$_SESSION['LiderLogin']."'";
+
+                            $conexao->query($atualiza3);
+
                             header('Location: ../Visuais/Painel.php');
-
                         }
-
-
                         else {
-
-                            echo "Falha";
-
+                            header('Location: ../Visuais/PainelPrimeiroAcesso.php?erro=6'); 
                         }
-
                     }
                     else{
-
-                        echo "Falha";
-
+                        header('Location: ../Visuais/PainelPrimeiroAcesso.php?erro=5'); 
                     }
-
                 }
-                else{
-                    
-                    echo 'Erro ao salvar o arquivo. Aparentemente você não tem permissão de escrita.<br />';
-                    
+                else{ 
+                    header('Location: ../Visuais/PainelPrimeiroAcesso.php?erro=4');   
                 }
             }
-            else{
-                
-                echo 'Você poderá enviar apenas arquivos "*.jpg;*.jpeg;*.gif;*.png"<br />';
-                
+            else{   
+                header('Location: ../Visuais/PainelPrimeiroAcesso.php?erro=3');         
             }
         }
-        else{
-            
-            echo 'Você não enviou nenhum arquivo!';
-            
+        else{   
+            header('Location: ../Visuais/PainelPrimeiroAcesso.php?erro=2');         
         }
     }
-    else{
-        
-        echo "Falha";
-        
+    else{      
+        header('Location: ../Visuais/PainelPrimeiroAcesso.php?erro=1');        
     }
 ?>

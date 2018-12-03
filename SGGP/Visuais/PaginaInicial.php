@@ -72,14 +72,14 @@
                 include("../BancoDeDados/Conexao.php");
                 $conexao = conectar();
                 
-                $busca = "SELECT `logotipo`, `sigla`, `nome`, `link`, `descricao` FROM `tb_grupospesquisa` WHERE `situacao` = 1";
+                $busca = "SELECT `id`, `logotipo`, `sigla`, `nome`, `link`, `descricao` FROM `tb_grupospesquisa` WHERE `situacao` = 1";
                 
             
                 if ($resultado = $conexao->prepare($busca)) {
 
                     $resultado->execute();
 
-                    $resultado->bind_result($logotipo, $sigla, $nome, $link, $descricao);
+                    $resultado->bind_result($id, $logotipo, $sigla, $nome, $link, $descricao);
 
                     while ($resultado->fetch()) {
                         printf('<div class="post-preview">
@@ -99,12 +99,46 @@
                                         
                                     </p>
                                     
-                                    <form action="../Grupos/'.$sigla.'" method="post">
+                                    <form action="../Grupos/'.$id.'" method="post">
                                         <input value="'.$sigla.'" name= "sigla" id = "sigla" hidden>
                                         <div style="text-align: right;">
                                         <button type="submit" class="btn btn-outline-info" style="color: #0085a1;">VER MAIS</button>
                                         </div>
                                     </form>
+                                </div>
+                                <hr>');
+
+                    }
+
+                }
+                else {
+
+                    printf( "Erro no SQL!");
+
+                }
+
+                $resultado->close();
+                
+            ?>
+          </div>
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <?php
+
+                $busca2 = "SELECT `postagem` FROM `tb_posts`";
+                
+            
+                if ($resultado = $conexao->prepare($busca2)) {
+
+                    $resultado->execute();
+
+                    $resultado->bind_result($postagem);
+
+                    while ($resultado->fetch()) {
+                        printf('<div class="post-preview">
+                                    <div>
+                                    <h3 class="post-subtitle" style="text-align: justify; font-weight: normal; font-family:\'Open Sans\',\'Helvetica Neue\',Helvetica,Arial,sans-serif">
+                                        '.$postagem.'
+                                    </h3>
                                 </div>
                                 <hr>');
 

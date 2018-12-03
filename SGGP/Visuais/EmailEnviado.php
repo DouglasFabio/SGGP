@@ -28,6 +28,10 @@ ini_set(“display_errors”, 0 );
                             EMAIL ENVIADO!
 
                         </span>
+                        
+                        <a href="../Visuais/Painel.php" class="login100-form-btn">
+                            Voltar
+                        </a>
 
                     </form>
 
