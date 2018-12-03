@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 02, 2018 at 10:15 PM
+-- Generation Time: Dec 02, 2018 at 11:05 PM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -39,7 +39,15 @@ CREATE TABLE IF NOT EXISTS `tb_alunos` (
   `data_inicio` date NOT NULL,
   `data_fim` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Dumping data for table `tb_alunos`
+--
+
+INSERT INTO `tb_alunos` (`id`, `nome`, `curso`, `link`, `data_inicio`, `data_fim`) VALUES
+(1, '----', '----', '----', '0001-01-01', NULL),
+(2, 'Aluno de testes', 'Curso teste', 'aluno.lattes.com', '2018-11-13', NULL);
 
 -- --------------------------------------------------------
 
@@ -57,7 +65,15 @@ CREATE TABLE IF NOT EXISTS `tb_equipamentos` (
   `data_fim` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `grupo` (`grupo`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Dumping data for table `tb_equipamentos`
+--
+
+INSERT INTO `tb_equipamentos` (`id`, `grupo`, `nome`, `descricao`, `data_inicio`, `data_fim`) VALUES
+(3, 'GPT', 'Equipamento Teste', 'Equipamento cadastrado para testar.', '2018-12-06', NULL),
+(4, 'GPT', 'Outro equipamento', 'Mas um cadastrado para testes.', '2018-12-07', NULL);
 
 -- --------------------------------------------------------
 
@@ -464,7 +480,14 @@ CREATE TABLE IF NOT EXISTS `tb_grupospesquisa` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `sigla` (`sigla`),
   KEY `lider` (`lider`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_grupospesquisa`
+--
+
+INSERT INTO `tb_grupospesquisa` (`nome`, `lider`, `situacao`, `email`, `link`, `descricao`, `logotipo`, `data_inicio`, `id`, `sigla`) VALUES
+('Grupo para testes', '1690175', 1, 'Grupo@email.com', 'grupo.lattes.com', 'Grupo criado para testes.', '../Uteis/Imagens/GruposPesquisa/3.jpg', '2018-11-01', 3, 'GPT');
 
 -- --------------------------------------------------------
 
@@ -496,6 +519,13 @@ CREATE TABLE IF NOT EXISTS `tb_lideres` (
   KEY `lider` (`lider`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `tb_lideres`
+--
+
+INSERT INTO `tb_lideres` (`lider`, `link`, `nome`, `foto`) VALUES
+('1690175', 'link.lattes.com', 'Igor de Moraes Sampaio', '../Uteis/Imagens/Lideres/1690175.jpg');
+
 -- --------------------------------------------------------
 
 --
@@ -512,7 +542,16 @@ CREATE TABLE IF NOT EXISTS `tb_linhasdocentes` (
   PRIMARY KEY (`id`),
   KEY `docente` (`docente`),
   KEY `linha_pesquisa` (`linha_pesquisa`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Dumping data for table `tb_linhasdocentes`
+--
+
+INSERT INTO `tb_linhasdocentes` (`id`, `inicio_vinculo`, `fim_vinculo`, `docente`, `linha_pesquisa`) VALUES
+(11, '2018-12-04', NULL, 47, 10304037),
+(12, '2018-12-04', NULL, 47, 10303057),
+(13, '2018-12-06', NULL, 48, 10303057);
 
 -- --------------------------------------------------------
 
@@ -532,7 +571,15 @@ CREATE TABLE IF NOT EXISTS `tb_linhasgrupos` (
   PRIMARY KEY (`id`),
   KEY `grupo` (`grupo`) USING BTREE,
   KEY `codigo_capes` (`codigo_capes`)
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Dumping data for table `tb_linhasgrupos`
+--
+
+INSERT INTO `tb_linhasgrupos` (`id`, `grupo`, `inicio_vinculo`, `fim_vinculo`, `codigo_capes`, `descricao`, `data_cad`) VALUES
+(17, 'GPT', '2018-12-02', NULL, 10304037, 'Linha vinculada para testes.', '2018-12-02'),
+(18, 'GPT', '2018-12-04', NULL, 10303057, 'Linha para testes.', '2018-12-02');
 
 -- --------------------------------------------------------
 
@@ -555,7 +602,16 @@ CREATE TABLE IF NOT EXISTS `tb_participantes` (
   `tipo` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `grupo` (`grupo`)
-) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Dumping data for table `tb_participantes`
+--
+
+INSERT INTO `tb_participantes` (`id`, `nome`, `link`, `formacao_acad`, `nome_curso`, `grupo`, `data_sistema`, `data_inclusao`, `data_exclusao`, `foto`, `tipo`) VALUES
+(46, 'Técnico teste.', 'link.lattes.com', 'Ensino Fundamental', '', 'GPT', '2018-12-02', '2018-12-03', NULL, '../Uteis/Imagens/Tecnicos/Desert.jpg.jpg', 0),
+(47, 'Docente Teste', 'docente.lattes.com', 'Especialização', 'Curso Teste', 'GPT', '2018-12-02', '2018-12-04', NULL, '../Uteis/Imagens/Docentes/Docente Teste.jpg', 1),
+(48, 'Outro Docente', 'outro.lattes.com', 'Mestrado', 'Mestre teste.', 'GPT', '2018-12-02', '2018-12-05', NULL, '../Uteis/Imagens/Docentes/Outro Docente.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -569,7 +625,15 @@ CREATE TABLE IF NOT EXISTS `tb_partreunioes` (
   `reuniao` int(11) NOT NULL,
   `docente` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Dumping data for table `tb_partreunioes`
+--
+
+INSERT INTO `tb_partreunioes` (`id`, `reuniao`, `docente`) VALUES
+(3, 18, 47),
+(4, 18, 48);
 
 -- --------------------------------------------------------
 
@@ -610,7 +674,14 @@ CREATE TABLE IF NOT EXISTS `tb_posts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `postagem` text COLLATE utf8_swedish_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Dumping data for table `tb_posts`
+--
+
+INSERT INTO `tb_posts` (`id`, `postagem`) VALUES
+(3, 'Criação de uma Postagem para Testes.\r\nTeste.\r\nTeste.\r\nTeste.');
 
 -- --------------------------------------------------------
 
@@ -634,7 +705,14 @@ CREATE TABLE IF NOT EXISTS `tb_projetospesquisa` (
   KEY `linha` (`linha`),
   KEY `aluno` (`aluno`),
   KEY `grupo` (`grupo`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Dumping data for table `tb_projetospesquisa`
+--
+
+INSERT INTO `tb_projetospesquisa` (`id`, `titulo`, `docente`, `linha`, `grupo`, `tipo`, `data_inicio`, `data_fim`, `aluno`) VALUES
+(9, 'Projeto teste', 47, 10303057, 'GPT', 'Voluntario', '2018-11-11', NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -658,7 +736,15 @@ CREATE TABLE IF NOT EXISTS `tb_publicacoes` (
   KEY `linha` (`linha`),
   KEY `docente` (`docente`),
   KEY `grupo` (`grupo`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Dumping data for table `tb_publicacoes`
+--
+
+INSERT INTO `tb_publicacoes` (`id`, `grupo`, `projeto`, `titulo`, `tipo`, `data`, `linha`, `docente`, `referencia`) VALUES
+(3, 'GPT', 9, 'Publicação com projeto', 'Livro', '2018-12-02', 10303057, 47, 'AMARAL, Emília; SEVERINO, Antônio; PATROCÍNIO, Mauro Ferreira do. Novo manual de redação: gramática, literatura, interpretação de texto. São Paulo: Círculo do Livro, 1995.'),
+(4, 'GPT', NULL, 'Publicação sem projeto', 'Livro', '2018-12-03', 10303057, 48, 'AMARAL, Emília; SEVERINO, Antônio; PATROCÍNIO, Mauro Ferreira do. Novo manual de redação: gramática, literatura, interpretação de texto. São Paulo: Círculo do Livro, 1995.');
 
 -- --------------------------------------------------------
 
@@ -679,7 +765,15 @@ CREATE TABLE IF NOT EXISTS `tb_reunioes` (
   `fim_reuniao` time DEFAULT NULL,
   `convidados` text COLLATE utf8_swedish_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Dumping data for table `tb_reunioes`
+--
+
+INSERT INTO `tb_reunioes` (`id`, `grupo`, `data`, `inicio_previsao`, `pauta`, `situacao`, `inicio_real`, `ATA`, `fim_reuniao`, `convidados`) VALUES
+(17, 'GPT', '2018-12-31', '10:10:00', 'Como tudo deu certo.\r\nComemoração.', 0, '00:00:00', '0', '00:00:00', '0'),
+(18, 'GPT', '2018-12-02', '01:01:00', 'Reunião teste.', 2, '11:11:00', 'Ata da 1ª reunião da Escola Estadual (nome completo da instituição de ensino) \r\n\r\nAos 16 dias do mês de fevereiro de 2010, às dezessete horas e trinta minutos, no auditório desta escola, sob a presença do diretor (nome completo), reuniram-se professores e demais colaboradores no intuito de discutirem e planejarem sobre a realização das aulas que serão ministradas no contraturno, funcionando como suporte pedagógico aos alunos que se encontram de dependência em algumas disciplinas. Depois de constatada a presença de todos, o diretor explanou sobre os benefícios proporcionados pelo procedimento, elecando as opiniões de todo o corpo docente e, decididamente, se instaurou que as aulas ocorrerão duas vezes por semana durante um período de seis meses. \r\nFirmados todos os compromissos, a reunião se encerrou, da qual eu, (nome da secretária que atende pela escola), lavrei a presente ata. Após ser lido e aprovado, o documento será assinado por mim e demais presentes.\r\n\r\nSão Bernardo do Campo, 16 de fevereiro de 2010.\r\n\r\nSeguem, posteriormente, as assinaturas:', '15:15:00', 'Convidado aleatórios.');
 
 -- --------------------------------------------------------
 
@@ -1684,6 +1778,13 @@ CREATE TABLE IF NOT EXISTS `tb_tecnicos` (
   `participante` int(11) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
+--
+-- Dumping data for table `tb_tecnicos`
+--
+
+INSERT INTO `tb_tecnicos` (`ano`, `atividade`, `participante`) VALUES
+('', 'Técnico Administrativo.', 46);
+
 -- --------------------------------------------------------
 
 --
@@ -1700,6 +1801,14 @@ CREATE TABLE IF NOT EXISTS `tb_usuarios` (
   `acesso` tinyint(1) NOT NULL,
   PRIMARY KEY (`login`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_usuarios`
+--
+
+INSERT INTO `tb_usuarios` (`login`, `email`, `senha`, `data`, `tipo`, `acesso`) VALUES
+('Administrador', 'igor100013@gmail.com', '22b7dec7305d63e2c769b0c9141114e69a194cc853b444c73b7be3a0771b628a', '2018-12-03 00:35:02', 0, 1),
+('1690175', 'igor100013@gmail.com', '645099adcefbd595f8bdfcf27ffb0360f8e68d3920dfcde5d9371dd16d109620', '2018-12-03 00:39:17', 1, 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -145,7 +145,7 @@
                             // Isso serve apenas para eu poder pesquisar dentro desta String
                             if ( strstr ( '.jpg;.jpeg;.gif;.png', $extensao ) ) {
 
-                                $novoNome =  $nome. '.' . $extensao;
+                                $novoNome =  $nome_tecnico. '.' . $extensao;
 
                                 // Concatena a pasta com o nome
                                 $destino = '../Uteis/Imagens/Tecnicos/' . $novoNome;

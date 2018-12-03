@@ -1,0 +1,4 @@
+Usuário: Administrador
+Senha: Admin123$
+Usuário: 1690175
+Senha: User123$
